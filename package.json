@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "restart": "npm run build && pm2 restart ligvo"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.6",
+    "bootstrap": "^5.2.3",
+    "normalize.css": "^8.0.1",
+    "nuxt": "^3.3.1",
+    "sass": "^1.60.0",
+    "sass-loader": "^10.4.1"
+  },
+  "dependencies": {
+    "@fawmi/vue-google-maps": "0.9.6",
+    "vee-validate": "^4.9.1",
+    "vue3-google-map": "^0.15.0"
+  }
+}

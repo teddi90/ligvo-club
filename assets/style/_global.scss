@@ -1,0 +1,54 @@
+// Fonts
+@include font-face("Literata", literata-v34-cyrillic_latin-regular);
+@include font-face("Literata", literata-v34-cyrillic_latin-500,500);
+@include font-face("Literata", literata-v34-cyrillic_latin-700,700);
+
+
+body{
+    font-family: $main-font;
+    font-size: $main-font-size;
+}
+.container{
+    max-width: $main-width;
+}
+.btn{
+    background-color: $second-color;
+  
+} 
+.map{
+    height: 485px;
+    @include media('md'){
+        display: none;
+    }
+}
+.vue-map-container{
+    height: 100%;
+}
+
+// Modal window
+.modal{
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__content{
+        margin: 0 25px;
+        position: relative;
+        background-color: #fff;
+        border-radius:$border-radius;
+        width: 600px;
+        padding: 64px 16px 24px;
+        box-sizing:border-box;
+    }
+    &__btn_close{
+        position: absolute;
+        right: 16px;
+        top: 28px;
+        cursor: pointer;
+    }
+}

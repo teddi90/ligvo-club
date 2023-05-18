@@ -1,0 +1,42 @@
+.header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    background-color: rgba(0,0,0,.2);
+    padding: 16px 0;
+}
+.nav{
+    &__wrapper{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+    }
+}
+.menu{
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    @include media('md'){
+        display: none;
+    }    
+    &__item{
+        a{
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: 400;
+            color:$main-color;
+            &:hover{
+                color:$second-color;
+            }
+        }
+    } 
+    &__item:not(:last-child){
+        margin-right: 56px;
+       
+    }
+}
+
