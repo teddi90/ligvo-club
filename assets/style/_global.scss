@@ -11,9 +11,15 @@ body{
 .container{
     max-width: $main-width;
 }
+.title{
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    color:$main-color;
+    text-transform: uppercase;
+}
 .btn{
     background-color: $second-color;
-  
 } 
 .map{
     height: 485px;
