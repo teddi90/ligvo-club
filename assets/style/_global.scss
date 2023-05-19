@@ -19,9 +19,22 @@ body{
     text-transform: uppercase;
 }
 .btn{
-    background-color: $second-color;
+    padding: 17px 112px;
+    background: $second-color;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4), inset 0px 4px 10px rgba(0, 0, 0, 0.25);
+    border-radius:$border-radius;
+    color:#fff;
 } 
+
+// Map
+.map-wrapper{
+    
+    background: $main-gradient;
+}
 .map{
+    border-bottom-right-radius: 688px 122px;
+    border-bottom-left-radius: 688px 122px;
+    overflow: hidden;
     height: 485px;
     @include media('md'){
         display: none;
@@ -56,5 +69,30 @@ body{
         right: 16px;
         top: 28px;
         cursor: pointer;
+    }
+}
+
+// Frame
+.frame{
+    position: relative;
+    text-align: center;
+    
+    &::after{
+        content: '';
+        position: absolute;
+        display: block;
+        left: 0;
+        bottom: -1px;
+        height: 2px;
+        width: 100%;
+        background:  linear-gradient(327.29deg, #F1D04A 9.8%, #ECC349 18.86%, #E1A746 32.95%, #DD9E46 41.01%, #D38746 53.09%, #C76B46 65.17%, #4F3131 89.33%, #482C2E 110.47%);
+    }
+    &.down{
+        &::after{
+        top: -1px;
+        }
+        .frame__img{
+            transform: rotate(180deg);
+        }
     }
 }

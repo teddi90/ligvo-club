@@ -1,7 +1,106 @@
 .catalog{
-    padding: 170px 0 170px;
-    background-color: #20131C;
-    background-image: url(~/assets/img/sparks.png);
-    background-repeat: no-repeat;
-    background-position: center 90px;
+    padding: 170px 0 100px;
+    background: #20131c;
+    background-image: url(~/assets/img/sparks.png), url(~/assets/img/sparks2.png),linear-gradient(180deg, rgba(32,19,28,1) 0%, rgba(16,16,16,1) 100%);
+    background-repeat: no-repeat no-repeat;
+    background-position: center 90px, center bottom;
+    // position: relative;
+    // z-index: 1;
+    // ::after{
+    //     content:'';
+    //     z-index: 0;
+    //     display: block;
+    //     position: absolute;
+    //     left: 0;
+    //     top: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     background: linear-gradient(180deg, rgba(32,19,28,1) 0%, rgba(16,16,16,1) 100%);
+    // }
+    .title{
+        margin-bottom: 60px;
+    }
+    .frame{
+        margin-bottom: 24px;
+        &.down{
+            margin-bottom: 0;
+        }
+    }
+}
+.catalog-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    height: 453px;
+    &__item{
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        position: relative;
+        background-size: cover;
+        background-repeat:no-repeat;
+        &_1{
+            background: url(~/assets/img/table_games.jpg);
+        }
+        &_2{
+            background: url(~/assets/img/role_games.jpg);
+        }
+        &_3{
+            background: url(~/assets/img/mtg.jpg);
+        }
+        &_4{
+            background: url(~/assets/img/wargames.jpg);
+        }
+        &::before{
+            content:'';
+            display: block;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: linear-gradient(180deg, rgba(27, 18, 34, 0.9) 14.06%, rgba(143, 0, 255, 0.1) 100%);
+        }
+        &:hover{
+            .catalog-wrapper__item_hover{
+                visibility: visible;
+                top: 0;
+            }
+        }
+    }
+    &__title{
+        font-weight: 500;
+        font-size: 18px;
+        color:#fff;
+        text-transform: uppercase;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        padding-top: 50px;
+
+    }
+    &__item_hover{
+        position: absolute;
+        background-color: $main-color;
+        padding: 50px 15px 20px;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 24px;
+        z-index: 2;
+        visibility: hidden;
+        transition: all .4s linear;
+        h3{
+            font-weight: 500;
+            font-size: 18px;
+            color:#fff;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        p{
+            color:#fff;
+        }
+    }
 }

@@ -1,0 +1,38 @@
+.callback{
+    background-color: #101010;
+    padding: 56px 0 243px;
+    text-align: center;
+    position: relative;
+    .title{
+        margin-bottom: 47px;
+    }
+    & .frame{
+        margin-bottom: 25px;
+        width: 300px;
+        display: inline-block;
+    }
+    &-card {
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        bottom: -66px;
+        transform: translateX(-50%);
+        text-align: center;
+        padding: 2px;
+        display: inline-block;
+        border-radius:6px;
+        background: linear-gradient(180deg, #9A543D 0%,  #9A543D 40%, #EBC249 80%,#FBF0C6 100% );  
+        &__wrapper {
+            display: inline-block;
+            padding: 80px 60px 56px;
+            background: $main-gradient;
+            border-radius:6px;
+        }
+
+        &__text {
+            margin-bottom: 60px;
+            color: #fff;
+            max-width: 680px;
+        }
+    }
+}

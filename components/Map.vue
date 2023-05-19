@@ -10,12 +10,12 @@
                 :key="index"
                 v-for="(marker, index) in markers"
                 :position="marker.position"
-                :clickable="true"
-                :draggable="true"
+                :clickable="false"
+                :draggable="false"
                 :icon="{
                     url: '/marker.png',
-                    size: { width: 60, height: 90, f: 'px', b: 'px' },
-                    scaledSize: { width: 50, height: 56, f: 'px', b: 'px' },
+                    size: { width: 90, height: 69, f: 'px', b: 'px' },
+                    scaledSize: { width: 90, height: 69, f: 'px', b: 'px' },
                 }"
             >
             </GMapMarker>
@@ -45,7 +45,7 @@ const mapStyle = ref({
     rotateControl: false,
     fullscreenControl: false,
     mapTypeId: "roadmap", // set the default map type to roadmap
-    backgroundColor: "#1C2546", // set the map background color
+    backgroundColor: "#1D1D1D", // set the map background color
     styles: [
         { elementType: "labels.text.stroke", stylers: [{ color: "#181F39" }] },
         {
@@ -53,7 +53,7 @@ const mapStyle = ref({
             elementType: "geometry",
             stylers: [
                 {
-                    color: "#000000 ", // set the color of all building elements
+                    color: "#4B4B4B ", // set the color of all building elements
                 },
             ],
         },
@@ -62,7 +62,7 @@ const mapStyle = ref({
             elementType: "geometry",
             stylers: [
                 {
-                    color: "#283663", // set the color of the road elements
+                    color: "#2D2D2D", // set the color of the road elements
                 },
             ],
         },
@@ -71,7 +71,7 @@ const mapStyle = ref({
             elementType: "labels.text.fill",
             stylers: [
                 {
-                    color: "#6A748F", // set the color of all label text elements
+                    color: "#4B4B4B", // set the color of all label text elements
                 },
             ],
         },
@@ -101,7 +101,7 @@ const mapStyle = ref({
             elementType: "geometry",
             stylers: [
                 {
-                    color: "#181F39",
+                    color: "#2D2D2D",
                 },
             ],
         },
@@ -110,7 +110,7 @@ const mapStyle = ref({
             elementType: "geometry.fill",
             stylers: [
                 {
-                    color: "#1C2546",
+                    color: "#141414",
                 },
             ],
         },

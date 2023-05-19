@@ -26,7 +26,7 @@
         display: inline-block;
         &-wrapper{
             padding: 5px;
-            background: linear-gradient(180deg, rgba(251,241,199,1) 0%,rgba(251,241,199,1) 10%, #E2AA46 33%, rgba(230,179,71,1) 74%, rgba(77,20,48,1) 100%);;;
+            background: linear-gradient(180deg, rgba(251,241,199,1) 0%,rgba(251,241,199,1) 10%, #E2AA46 33%, rgba(230,179,71,1) 60%, #863D3B 80%, rgba(77,20,48,1) 100%);
             border-radius:calc($border-radius + 4px);
             display: inline-block;
         }
