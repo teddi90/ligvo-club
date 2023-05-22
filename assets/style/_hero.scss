@@ -4,6 +4,7 @@
     background:url('~/assets/img/hero.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     &__title {
@@ -20,10 +21,16 @@
         padding: 15px 22px;
         color:#000;
         background: linear-gradient(180deg, #F9ECB3 -85.11%, #F1D04A -23.73%, #FFCA35 27.99%, #FF8600 57.72%, #B64705 88.75%, #20141B 128.82%);
-        box-shadow: 0px 6px 20px ;
+        box-shadow: 0px 6px 20px #000;
         border-radius:$border-radius;
         box-sizing:border-box;
         display: inline-block;
+        transition: all .3s ease-in;
+        &:hover{
+            color:#fff;
+            background:  $main-color;
+            box-shadow:0px 6px 20px #291f1f;
+        }
         &-wrapper{
             padding: 5px;
             background: linear-gradient(180deg, rgba(251,241,199,1) 0%,rgba(251,241,199,1) 10%, #E2AA46 33%, rgba(230,179,71,1) 60%, #863D3B 80%, rgba(77,20,48,1) 100%);

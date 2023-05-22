@@ -29,9 +29,9 @@
                     </div>
                 </div>
                 <div class="catalog-wrapper__item catalog-wrapper__item_2">
-                    <h3 class="catalog-wrapper__title">РоЛьові ігри</h3>
+                    <h3 class="catalog-wrapper__title">Рольові ігри</h3>
                     <div class="catalog-wrapper__item_hover">
-                        <h3>РоЛьові ігри</h3>
+                        <h3>Рольові ігри</h3>
                         <p>
                             Lorem ipsum dolor, sit amet consectetur adipisicing
                             elit. Ea doloribus, animi quaerat blanditiis nemo
@@ -75,7 +75,13 @@
                         Буль ласка, звяжіться з нами якщо бажаєте записатись на
                         гру або хочете дізнатись будь-яку іншу інформацію.
                     </p>
-                    <a class="btn" href="#">Написати у Телеграм</a>
+                    <div class="callback-btn__wrapper">
+                        <a class="btn" href="#">Написати у Телеграм</a>
+                        <img
+                            src="~/assets/img/flag.png"
+                            class="callback-btn__flag"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

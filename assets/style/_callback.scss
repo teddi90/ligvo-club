@@ -10,6 +10,10 @@
         margin-bottom: 25px;
         width: 300px;
         display: inline-block;
+        &::after{
+            // background: linear-gradient(0deg, #FBF1C7 0.01%, #FBF0C2 2.01%, #F9ECB3 6.01%, #F7E59A 9.01%, #F5DC77 12.01%, #F1D04A 16.01%, #ECC349 26.01%, #E1A746 41.01%, #DD9E46 46.01%, #D38746 54%, #C76B46 61%, #482C2E 87%);
+            background:$main-color;
+        }
     }
     &-card {
         position: absolute;
@@ -34,5 +38,18 @@
             color: #fff;
             max-width: 680px;
         }
+    }
+    &-btn__wrapper{
+        position: relative;
+        .btn{
+            position: relative;
+            z-index: 1;
+        }
+    }
+    &-btn__flag{
+        position: absolute;
+        left: 50%;
+        top: 100%;
+        transform: translateX(-50%);
     }
 }

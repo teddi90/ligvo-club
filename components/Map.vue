@@ -45,7 +45,7 @@ const mapStyle = ref({
     rotateControl: false,
     fullscreenControl: false,
     mapTypeId: "roadmap", // set the default map type to roadmap
-    backgroundColor: "#1D1D1D", // set the map background color
+    backgroundColor: "#121212", // set the map background color
     styles: [
         { elementType: "labels.text.stroke", stylers: [{ color: "#181F39" }] },
         {
@@ -53,7 +53,7 @@ const mapStyle = ref({
             elementType: "geometry",
             stylers: [
                 {
-                    color: "#4B4B4B ", // set the color of all building elements
+                    color: "#121212 ", // set the color of all building elements
                 },
             ],
         },
@@ -62,7 +62,7 @@ const mapStyle = ref({
             elementType: "geometry",
             stylers: [
                 {
-                    color: "#2D2D2D", // set the color of the road elements
+                    color: "#474747", // set the color of the road elements
                 },
             ],
         },
@@ -101,7 +101,7 @@ const mapStyle = ref({
             elementType: "geometry",
             stylers: [
                 {
-                    color: "#2D2D2D",
+                    color: "#1a1919",
                 },
             ],
         },
@@ -110,7 +110,7 @@ const mapStyle = ref({
             elementType: "geometry.fill",
             stylers: [
                 {
-                    color: "#141414",
+                    color: "#212020",
                 },
             ],
         },

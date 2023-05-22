@@ -27,19 +27,72 @@
         display: none;
     }    
     &__item{
-        a{
-            text-transform: uppercase;
-            text-decoration: none;
-            font-weight: 400;
-            color:$main-color;
-            &:hover{
-                color:$second-color;
+        position: relative;
+        &:hover{
+            .sub-menu{
+                display: block;
             }
+
         }
     } 
+    &__link{
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: 400;
+        color:$main-color;
+        transition: color .3s ease-in;
+        &:hover{
+            color:$second-color;
+        }
+        &_sub-menu{
+            position: relative;
+            display: flex;
+            align-items: center;
+            &:hover{
+                &::after{
+                    border-top: 5px solid $second-color;
+                }
+            }
+            &::after{
+                content: '';
+                width: 0; 
+                height: 0; 
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 5px solid $main-color;
+                margin-left: 11px;
+                transition: border .3s ease-in;
+            }
+        }
+    }
     &__item:not(:last-child){
         margin-right: 56px;
        
+    }
+}
+.sub-menu{
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding: 10px 15px 15px;
+    background-color: rgba(#000, .2);
+    width: 170px;
+    display: none;
+    left: -10px;
+    &__item:not(:last-child){
+        margin-bottom: 10px;
+       
+    }
+    &__link{
+        display: block;
+        text-transform: uppercase;
+        color:$main-color;
+        text-decoration: none;
+        transition: color .3s ease-in;
+        &:hover{
+            color:$second-color;
+        }
     }
 }
 

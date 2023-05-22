@@ -10,13 +10,37 @@
                     </div>
                     <ul class="menu">
                         <li class="menu__item">
-                            <a href="#">Каталог Ігор</a>
+                            <a class="menu__link menu__link_sub-menu" href="#"
+                                >Каталог Ігор</a
+                            >
+                            <ul class="sub-menu">
+                                <li class="sub-menu__item">
+                                    <a class="sub-menu__link" href="#"
+                                        >Настільні ігри</a
+                                    >
+                                </li>
+                                <li class="sub-menu__item">
+                                    <a class="sub-menu__link" href="#"
+                                        >Рольові ігри</a
+                                    >
+                                </li>
+                                <li class="sub-menu__item">
+                                    <a class="sub-menu__link" href="#">МТГ</a>
+                                </li>
+                                <li class="sub-menu__item">
+                                    <a class="sub-menu__link" href="#"
+                                        >Варгейми</a
+                                    >
+                                </li>
+                            </ul>
                         </li>
                         <li class="menu__item">
-                            <NuxtLink to="#">Про нас</NuxtLink>
+                            <NuxtLink class="menu__link" to="#"
+                                >Про нас</NuxtLink
+                            >
                         </li>
                         <li class="menu__item">
-                            <a href="#footer">Контакти</a>
+                            <a class="menu__link" href="#footer">Контакти</a>
                         </li>
                     </ul>
                 </div>

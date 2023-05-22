@@ -24,6 +24,11 @@ body{
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4), inset 0px 4px 10px rgba(0, 0, 0, 0.25);
     border-radius:$border-radius;
     color:#fff;
+    transition: all .3s ease-in;
+    &:hover{
+        background: $main-color;
+        color:#fff;
+    }
 } 
 
 // Map
