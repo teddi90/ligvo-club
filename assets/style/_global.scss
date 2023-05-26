@@ -3,7 +3,6 @@
 @include font-face("Literata", literata-v34-cyrillic_latin-500,500);
 @include font-face("Literata", literata-v34-cyrillic_latin-700,700);
 
-
 body{
     font-family: $main-font;
     font-size: $main-font-size;
@@ -26,10 +25,87 @@ body{
     color:#fff;
     transition: all .3s ease-in;
     &:hover{
-        background: $main-color;
+        background: $second-color;
         color:#fff;
     }
+    &:active{
+        background: $second-color;
+        color:#fff;
+    }
+
 } 
+
+// Form
+.form{
+    background-color: $main-color;
+    padding: 60px 80px;
+    border-radius:$border-radius;
+    h3{
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 24px;
+    }
+    p{
+        font-weight: 600;
+        margin-bottom: 24px;
+    }   
+    &__input{
+        width: 100%;
+        height: 56px;
+        padding: 0 12px;
+        border:none;
+        border-bottom:1px solid rgba(0,0,0,.42);
+        background-color: $main-color;
+        &:focus{
+            outline: none;
+        }
+        &-wrapper{
+            margin-bottom: 20px;
+            position: relative;
+            &:nth-child(5){
+                margin-bottom: 40px;
+            }
+        }
+    }
+    &__textarea{
+        width: 100%;
+        padding: 18px 12px;
+        background-color: $main-color;
+        border:1px solid rgba(0,0,0,.42);
+        border-radius:calc($border-radius / 2);
+        margin-bottom: 48px;
+    }
+    &__error{
+        position: absolute;
+        bottom: -22px;
+        left: 0;
+        font-size: 14px;
+        color:red;
+    }
+    &__result-message{
+        position: absolute;
+        bottom: 12px;
+        left: 0;
+        font-size: 16px;
+        &.success{
+            color: green;
+        }
+        &.faild{
+            color: red;
+        }
+    }
+    &__btn{
+        background-color: #DB3A30;
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+        transition: background .4s linear;
+        &:hover{
+            background: $second-color;
+        }
+        &-wrapper{
+            text-align: center;
+        }
+    }
+}
 
 // Map
 .map-wrapper{
@@ -65,6 +141,7 @@ body{
         position: relative;
         background-color: #fff;
         border-radius:$border-radius;
+        background-color: $main-color;
         width: 600px;
         padding: 64px 16px 24px;
         box-sizing:border-box;

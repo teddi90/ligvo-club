@@ -11,7 +11,9 @@
                     <div class="col-md-4">
                         <ul class="footer__info-services">
                             <li>
-                                <NuxtLink to="#">Настільні ігри</NuxtLink>
+                                <NuxtLink to="/boardgames"
+                                    >Настільні ігри</NuxtLink
+                                >
                             </li>
 
                             <li>

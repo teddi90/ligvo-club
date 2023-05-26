@@ -15,8 +15,10 @@
                             >
                             <ul class="sub-menu">
                                 <li class="sub-menu__item">
-                                    <a class="sub-menu__link" href="#"
-                                        >Настільні ігри</a
+                                    <NuxtLink
+                                        class="sub-menu__link"
+                                        to="/boardgames"
+                                        >Настільні ігри</NuxtLink
                                     >
                                 </li>
                                 <li class="sub-menu__item">

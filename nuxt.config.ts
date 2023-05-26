@@ -15,7 +15,7 @@ export default defineNuxtConfig({
         '~/plugins/vueGoogleMaps.js',
     ],
     build: {
-        transpile: ["@fawmi/vue-google-maps", "vee-validate"],
+        transpile: ["@fawmi/vue-google-maps", "@vee-validate/nuxt"],
     },
     runtimeConfig: {
         public: {
@@ -23,4 +23,7 @@ export default defineNuxtConfig({
             googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
         },
     },
+    modules: [
+        '@vee-validate/nuxt',
+    ],
 })

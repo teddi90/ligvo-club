@@ -1,0 +1,157 @@
+.board-games{
+    padding: 200px 0 54px;
+    position: relative;
+    background:  #000;
+    &::before{
+        content: '';
+        position: absolute;
+        top: 100px;
+        left: 0;
+        width: 100%;
+        height: 371px;
+        background:url(~/assets/img/sparks.png);
+        background-repeat: no-repeat;
+        background-position: center top, left top;
+        z-index: 1;
+    }    
+    &__bg{
+        position: absolute;
+        width: 100%;
+        height: 1200px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 39.95%, #000000 122.92%), linear-gradient(269.99deg, #35131F 0%, #641739 46.87%, #361420 99.98%);
+        box-shadow: 0px 23px 100px rgba(0, 0, 0, 0.4);
+        left: 0;
+        top: 0;
+        z-index: 0;
+        border-bottom-right-radius: 688px 122px;
+        border-bottom-left-radius: 688px 122px;
+    }
+    .container{
+        position: relative;
+        z-index: 1;
+    }
+    .title{
+        margin-bottom: 0px;
+    }
+    &__top{
+        position: relative;
+        margin-bottom: 57px;
+    }
+    &__filter{
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        color:$main-color;
+        text-decoration: none;
+        transition: color .3s ease-in-out;
+        &:hover{
+            color:$second-color;
+            svg{
+                color:$second-color;
+            }
+        }
+        svg{
+            transition: color .3s ease-in-out;
+            color:#F5C47A;
+            margin-right: 5px;
+        }
+    }
+}
+.game {
+    &__card {
+        background-color: $main-color;
+        padding: 40px;
+        border-radius: $border-radius;
+        position: relative;
+        margin-bottom: 92px;
+        &::before{
+            content:'';
+            display: block;
+            position: absolute;
+            top: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: url(~/assets/img/arrows_card_up.png);
+            width: 102px;
+            height: 26px;
+        }
+        &::after{
+            content:'';
+            display: block;
+            position: absolute;
+            bottom: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: url(~/assets/img/arrows_card_down.png);
+            width: 102px;
+            height: 26px;
+        }
+    }
+    &__img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+        &_wrapper {
+            position: relative;
+            filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.42));
+            border-radius: $border-radius;
+            overflow: hidden;
+            margin-bottom: 16px;
+            // height: 230px;
+            padding-top: 47.2%;
+        }
+    }
+    &__title {
+        font-size: 24px;
+        font-weight: 400;
+        margin-bottom: 0;
+    }
+    &__info{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        &_item{
+            color: #fff;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            height: 32px;
+            width: 76px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 5px rgba(75, 0, 0, 0.31);
+            border-radius: 8px;
+            &:not(:last-child){
+                margin-right: 8px;
+            }
+            svg{
+                margin-right: 3px;
+            }
+            span{
+                display: inline-block;
+                line-height: 11px;
+            }
+        }
+    }
+    &__text {
+        margin-bottom: 24px;
+        height: 144px;
+        overflow: hidden;
+    }
+    &__btn {
+        padding: 10px;
+        display: block;
+        background-color: #DB3A30;
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+        transition: background .3s ease-in-out;
+        &:hover{
+            background-color: $second-color;
+        }
+    }
+}
