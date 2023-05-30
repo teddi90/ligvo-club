@@ -133,7 +133,8 @@
 </template>
 
 <script setup>
-let heroLayer;
+let heroLayer1;
+let heroLayer2;
 let heroContent;
 const isModalVisible = ref(false);
 
@@ -147,11 +148,15 @@ const heroParalax = () => {
     } else {
         heroContent.style.zIndex = 2;
     }
-    heroLayer.style.bottom = `${-576 + scrollValue / 2}px`;
+    heroLayer2.style.bottom = `${-450 + scrollValue / 2}px`;
+    heroLayer2.style.filter = `brightness(${1 - scrollValue / 2000})`;
+    heroLayer1.style.filter = `brightness(${1 - scrollValue / 1000})`;
+    heroContent.style.filter = `brightness(${1 - scrollValue / 1000})`;
 };
 onMounted(() => {
     heroContent = document.querySelector(".hero__wrapper");
-    heroLayer = document.querySelector(".hero-layer2");
+    heroLayer1 = document.querySelector(".hero-layer1");
+    heroLayer2 = document.querySelector(".hero-layer2");
 
     window.addEventListener("scroll", heroParalax);
 });

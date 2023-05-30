@@ -19,12 +19,13 @@
         top: 0;
     }
     &-layer2{
-        bottom: -576px;
+        bottom: -450px;
         z-index: 2;
     }
     &__wrapper{
         position: relative;
         z-index: 2;
+        // background:rgba(0, 0, 0, 0.4)
     }
     
     &__title {

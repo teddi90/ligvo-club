@@ -24,8 +24,6 @@
 </template>
 
 <script setup>
-import { CustomMarker } from "vue3-google-map";
-const openedMarkerID = ref(null);
 const center = ref({ lat: 48.92246917952839, lng: 24.708524565007522 });
 const markers = ref([
     {

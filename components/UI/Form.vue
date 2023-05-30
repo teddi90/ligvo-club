@@ -62,6 +62,12 @@
 
 <script setup>
 import { Form, Field, ErrorMessage } from "vee-validate";
+const config = useRuntimeConfig();
+const TOKEN = config.public.telegramToken;
+const CHAT_ID = config.public.telegramChatId;
+console.log(TOKEN);
+console.log(CHAT_ID);
+
 const userName = ref("");
 const userMail = ref("");
 const userPhone = ref("");
@@ -69,9 +75,7 @@ const userMessage = ref("");
 const resultMessage = ref({ isShow: false, status: "", message: "" });
 
 const onSubmit = (value, { resetForm }) => {
-    const token = "6069087535:AAFODSE5Ye-L105XHaNBSvHqeEJjJ85yIr8";
-    const chatId = "-1001986456595";
-    const URI_API = `https://api.telegram.org/bot${token}/sendMessage`;
+    const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
     let message = `<b>Ім'я: </b>${userName.value}\n`;
     message += `<b>Емейл: </b>${userMail.value}\n`;
     message += `<b>Телефон: </b>${userPhone.value}\n`;
@@ -79,7 +83,7 @@ const onSubmit = (value, { resetForm }) => {
 
     useFetch(URI_API, {
         method: "POST",
-        query: { chat_id: chatId, parse_mode: "html", text: message },
+        query: { chat_id: CHAT_ID, parse_mode: "html", text: message },
         onResponse({ request, response, options }) {
             if (response.status === 200) {
                 resultMessage.value = {
