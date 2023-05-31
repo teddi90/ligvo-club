@@ -6,7 +6,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "restart": "npm run build && pm2 restart ligvo"
+    "restart": "npm run build && pm2 restart ligvo-club"
   },
   "devDependencies": {
     "@types/node": "^18.15.6",
