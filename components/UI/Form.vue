@@ -65,8 +65,6 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 const config = useRuntimeConfig();
 const TOKEN = config.public.telegramToken;
 const CHAT_ID = config.public.telegramChatId;
-console.log(TOKEN);
-console.log(CHAT_ID);
 
 const userName = ref("");
 const userMail = ref("");
@@ -83,7 +81,7 @@ const onSubmit = (value, { resetForm }) => {
 
     useFetch(URI_API, {
         method: "POST",
-        query: { chat_id: CHAT_ID, parse_mode: "html", text: message },
+        params: { chat_id: CHAT_ID, parse_mode: "html", text: message },
         onResponse({ request, response, options }) {
             if (response.status === 200) {
                 resultMessage.value = {

@@ -171,10 +171,8 @@ body{
     }
     &.down{
         &::after{
-        top: -1px;
+            top: -1px;
         }
-        .frame__img{
-            transform: rotate(180deg);
-        }
+        
     }
 }

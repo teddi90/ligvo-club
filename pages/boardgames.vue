@@ -400,6 +400,11 @@
 </template>
 
 <script setup>
+import { useGamesStore } from "~/stores/games";
+const store = useGamesStore();
+
+const boardGames = ref(store.getBoardGames);
+// console.log(boardGames);
 const isModalVisible = ref(false);
 const showModal = () => {
     isModalVisible.value = true;

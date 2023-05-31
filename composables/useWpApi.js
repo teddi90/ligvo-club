@@ -4,28 +4,21 @@ export default () => {
 
     // get
     const get = async (endpoint) => {
-        return useFetch(`${wpUri}/wp-json/wp/v2/${endpoint}`);
+        const { data } = await useFetch(`${wpUri}/wp-json/wp/v2/${endpoint}`);
+        return data;
     }
 
     // Get All posts
-    const getPosts = async (categories, page = 1, perPage = 9) => {
-        let query = `posts?_embed&per_page=${perPage}&page=${page}`;
-        if (categories) {
-            query += `&categories=${categories}`;
-        }
+    const getPosts = async () => {
+        let query = `boardgames`;
         return get(query);
     }
 
     // Get a Single Post
     const getPost = async (slug) => get(`posts?slug=${slug}&_embed`);
 
-    // Get All Categories
-    const getCategories = async () => get("categories");
 
 
-    // Get a Single Categories
-    const getCategory = async (slug) => get(`categories?slug=${slug}`);
-
-    return { get, getPost, getPosts, getCategories, getCategory }
+    return { get, getPost, getPosts }
 
 }

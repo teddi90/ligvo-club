@@ -2,16 +2,18 @@
     <section class="hero">
         <div class="container">
             <img
+                ref="heroLayer1"
                 class="hero-bg hero-layer1"
                 src="~/assets/img/hero_bg.jpg"
                 alt=""
             />
             <img
+                ref="heroLayer2"
                 class="hero-bg hero-layer2"
                 src="~/assets/img/hero_ground.png"
                 alt=""
             />
-            <div class="hero__wrapper">
+            <div ref="heroContent" class="hero__wrapper">
                 <h1 class="hero__title">
                     Клуб<br />
                     настільних ігор
@@ -133,9 +135,9 @@
 </template>
 
 <script setup>
-let heroLayer1;
-let heroLayer2;
-let heroContent;
+let heroLayer1 = ref(null);
+let heroLayer2 = ref(null);
+let heroContent = ref(null);
 const isModalVisible = ref(false);
 
 const showModal = () => {
@@ -143,21 +145,17 @@ const showModal = () => {
 };
 const heroParalax = () => {
     let scrollValue = window.scrollY;
-    if (scrollValue > 230) {
-        heroContent.style.zIndex = 1;
+    if (scrollValue > 270) {
+        heroContent.value.style.zIndex = 1;
     } else {
-        heroContent.style.zIndex = 2;
+        heroContent.value.style.zIndex = 2;
     }
-    heroLayer2.style.bottom = `${-450 + scrollValue / 2}px`;
-    heroLayer2.style.filter = `brightness(${1 - scrollValue / 2000})`;
-    heroLayer1.style.filter = `brightness(${1 - scrollValue / 1000})`;
-    heroContent.style.filter = `brightness(${1 - scrollValue / 1000})`;
+    heroLayer2.value.style.bottom = `${-450 + scrollValue / 2}px`;
+    heroLayer2.value.style.filter = `brightness(${1 - scrollValue / 2000})`;
+    heroLayer1.value.style.filter = `brightness(${1 - scrollValue / 1000})`;
+    heroContent.value.style.filter = `brightness(${1 - scrollValue / 1000})`;
 };
 onMounted(() => {
-    heroContent = document.querySelector(".hero__wrapper");
-    heroLayer1 = document.querySelector(".hero-layer1");
-    heroLayer2 = document.querySelector(".hero-layer2");
-
     window.addEventListener("scroll", heroParalax);
 });
 </script>
