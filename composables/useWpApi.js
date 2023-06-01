@@ -4,8 +4,7 @@ export default () => {
 
     // get
     const get = async (endpoint) => {
-        const { data } = await useFetch(`${wpUri}/wp-json/wp/v2/${endpoint}`);
-        return data;
+        return useFetch(`${wpUri}/wp-json/wp/v2/${endpoint}`);
     }
 
     // Get All posts

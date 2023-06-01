@@ -135,9 +135,9 @@
 </template>
 
 <script setup>
-let heroLayer1 = ref(null);
-let heroLayer2 = ref(null);
-let heroContent = ref(null);
+const heroLayer1 = ref(null);
+const heroLayer2 = ref(null);
+const heroContent = ref(null);
 const isModalVisible = ref(false);
 
 const showModal = () => {
@@ -157,6 +157,9 @@ const heroParalax = () => {
 };
 onMounted(() => {
     window.addEventListener("scroll", heroParalax);
+});
+onUnmounted(() => {
+    window.removeEventListener("scroll", heroParalax);
 });
 </script>
 

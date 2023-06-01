@@ -6,6 +6,11 @@
     @include media('md'){
         display: none;
     }
+    &.board-games__footer{
+        background-image:url(~/assets/img/crystal_left.png),url(~/assets/img/troll.png), url(~/assets/img/crystal_right.png), $main-gradient;
+        background-repeat:no-repeat;
+        background-position:top left, bottom right, bottom right;
+    }
     &__logo{
         text-align: center;
         margin-bottom: 80px;
@@ -31,8 +36,7 @@
                     color:$main-color;
                 }
             }
-        }
-       
+        } 
     }
     &__info-services{
         padding-left: 130px;

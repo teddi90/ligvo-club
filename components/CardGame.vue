@@ -60,7 +60,14 @@
 </template>
 
 <script setup>
+const emit = defineEmits(["showModal"]);
 defineProps({
-    game: Object,
+    game: {
+        type: Object,
+        default: () => ({}),
+    },
 });
+const showModal = () => {
+    emit("showModal");
+};
 </script>
