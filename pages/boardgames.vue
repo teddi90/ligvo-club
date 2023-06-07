@@ -1,7 +1,7 @@
 <template>
     <section class="board-games">
         <div class="board-games__bg"></div>
-        <UIModal v-model:isModalVisible="isModalVisible">
+        <UIModal :isModalVisible="isModalVisible" @hideModal="hideModal">
             <UIForm />
         </UIModal>
         <div class="container">
@@ -42,10 +42,7 @@
 
 <script setup>
 import { useGamesStore } from "~/stores/games";
+import useModal from "~/mixins/useModal";
 const store = useGamesStore();
-
-const isModalVisible = ref(false);
-const showModal = () => {
-    isModalVisible.value = true;
-};
+const { isModalVisible, showModal, hideModal } = useModal();
 </script>

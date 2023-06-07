@@ -14,9 +14,7 @@ export default () => {
     }
 
     // Get a Single Post
-    const getPost = async (slug) => get(`posts?slug=${slug}&_embed`);
-
-
+    const getPost = async (slug) => get(`boardgames?slug=${slug}&_embed`);
 
     return { get, getPost, getPosts }
 

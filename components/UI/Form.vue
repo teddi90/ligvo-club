@@ -4,7 +4,7 @@
         <p>Ми відповімо Вам протягом 24 годин</p>
         <div class="form__input-wrapper">
             <Field
-                v-model="userName"
+                v-model.trim="userName"
                 class="form__input"
                 name="name"
                 type="text"
@@ -26,7 +26,7 @@
         <div class="form__input-wrapper">
             <Field
                 :rules="validatePhone"
-                v-model="userPhone"
+                v-model.trim="userPhone"
                 class="form__input"
                 type="tel"
                 name="phone"
@@ -36,7 +36,7 @@
         </div>
         <div class="form__input-wrapper">
             <Field
-                v-model="userMessage"
+                v-model.trim="userMessage"
                 class="form__textarea"
                 placeholder="Текст"
                 type="text"

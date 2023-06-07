@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <UIModal v-model:isModalVisible="isModalVisible">
+        <UIModal :isModalVisible="isModalVisible" @hideModal="hideModal">
             <UIForm />
         </UIModal>
     </section>
@@ -135,14 +135,12 @@
 </template>
 
 <script setup>
+import useModel from "~/mixins/useModal";
 const heroLayer1 = ref(null);
 const heroLayer2 = ref(null);
 const heroContent = ref(null);
-const isModalVisible = ref(false);
+const { showModal, isModalVisible, hideModal } = useModel();
 
-const showModal = () => {
-    isModalVisible.value = true;
-};
 const heroParalax = () => {
     let scrollValue = window.scrollY;
     if (scrollValue > 270) {

@@ -1,8 +1,8 @@
 <template>
-    <div class="modal" v-if="isModalVisible" @click.stop="hideDialog">
+    <div class="modal" v-if="isModalVisible" @click.stop="hideModal">
         <div @click.stop class="modal__content">
             <svg
-                @click="hideDialog"
+                @click="hideModal"
                 class="modal__btn_close"
                 width="16"
                 height="16"
@@ -24,14 +24,14 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["isModalVisible"]);
+const emit = defineEmits(["hideModal"]);
 defineProps({
     isModalVisible: {
         type: Boolean,
         default: false,
     },
 });
-const hideDialog = () => {
-    emit("update:isModalVisible", false);
+const hideModal = (e) => {
+    emit("hideModal", e.target);
 };
 </script>

@@ -67,7 +67,7 @@ defineProps({
         default: () => ({}),
     },
 });
-const showModal = () => {
-    emit("showModal");
+const showModal = (e) => {
+    emit("showModal", e.target);
 };
 </script>
