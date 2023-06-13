@@ -135,11 +135,11 @@
 </template>
 
 <script setup>
-import useModel from "~/mixins/useModal";
+import useModal from "~/mixins/useModal";
 const heroLayer1 = ref(null);
 const heroLayer2 = ref(null);
 const heroContent = ref(null);
-const { showModal, isModalVisible, hideModal } = useModel();
+const { showModal, isModalVisible, hideModal } = useModal();
 
 const heroParalax = () => {
     let scrollValue = window.scrollY;

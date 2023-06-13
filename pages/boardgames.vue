@@ -1,4 +1,5 @@
 <template>
+    <UILoader v-if="store.isFetchingData" />
     <section class="board-games">
         <div class="board-games__bg"></div>
         <UIModal :isModalVisible="isModalVisible" @hideModal="hideModal">
@@ -43,6 +44,8 @@
 <script setup>
 import { useGamesStore } from "~/stores/games";
 import useModal from "~/mixins/useModal";
+
 const store = useGamesStore();
+store.fetchBoardGames();
 const { isModalVisible, showModal, hideModal } = useModal();
 </script>

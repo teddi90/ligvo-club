@@ -8,7 +8,7 @@
                 class="form__input"
                 name="name"
                 type="text"
-                placeholder="Ваше ім'я"
+                placeholder="Ім'я"
             />
             <ErrorMessage class="form__error" name="name" />
         </div>
@@ -19,7 +19,7 @@
                 class="form__input"
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder="email@example.com"
             />
             <ErrorMessage class="form__error" name="email" />
         </div>
