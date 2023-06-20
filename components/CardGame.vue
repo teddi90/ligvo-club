@@ -12,7 +12,35 @@
         <figcaption>
             <div class="game__info">
                 <h3 class="game__title">{{ game.acf.name }}</h3>
-                <div>
+                <div class="game__info_item-wrapper">
+                    <div class="game__info_item game__info_indicator-wrapper">
+                        <div class="game__info_indicators">
+                            <span
+                                :class="{
+                                    active:
+                                        props.game.acf.difficult === 'easy' ||
+                                        props.game.acf.difficult === 'medium' ||
+                                        props.game.acf.difficult === 'hard',
+                                }"
+                                class="game__info_indicator"
+                            ></span>
+                            <span
+                                :class="{
+                                    active:
+                                        props.game.acf.difficult === 'medium' ||
+                                        props.game.acf.difficult === 'hard',
+                                }"
+                                class="game__info_indicator"
+                            ></span>
+                            <span
+                                :class="{
+                                    active: props.game.acf.difficult === 'hard',
+                                }"
+                                class="game__info_indicator"
+                            ></span>
+                        </div>
+                    </div>
+
                     <div class="game__info_item">
                         <svg
                             width="14"
@@ -27,8 +55,8 @@
                             />
                         </svg>
                         <span
-                            >{{ game.acf.min_people }}-{{
-                                game.acf.max_peaple
+                            >{{ game.acf.min_players }}-{{
+                                game.acf.max_players
                             }}</span
                         >
                     </div>
@@ -61,7 +89,7 @@
 
 <script setup>
 const emit = defineEmits(["showModal"]);
-defineProps({
+const props = defineProps({
     game: {
         type: Object,
         default: () => ({}),

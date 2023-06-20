@@ -1,0 +1,117 @@
+.tinder{
+    padding: 100px 0 115px;
+    margin-bottom: 10px;
+    position: relative;
+    background:url(~/assets/img/tinder_bg1.png),url(~/assets/img/tinder_bg2.png),  linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #101010 100%), linear-gradient(269.99deg, #35131F 0%, #641966 46.87%, #361420 99.98%);
+    background-repeat:no-repeat;
+    background-position:bottom left, bottom right;
+    box-shadow: 0px 23px 100px rgba(0, 0, 0, 0.4);
+    &::after{
+        content:'';
+        position: absolute;
+        display: block;
+        height: 10px;
+        width: 100%;
+        bottom: -10px;
+        left: 0;
+        background: linear-gradient(0deg, #FBF1C7 0.01%, #FBF0C2 2.01%, #F9ECB3 6.01%, #F7E59A 9.01%, #F5DC77 12.01%, #F1D04A 16.01%, #ECC349 26.01%, #E1A746 41.01%, #DD9E46 46.01%, #D38746 54%, #C76B46 61%, #482C2E 87%);
+    }
+    &__title-wrapper{
+        text-align: center;
+        & .title{
+            margin-bottom: 32px;
+            display: inline-block;
+            position: relative;
+            &::before{
+                content:'';
+                position: absolute;
+                display: block;
+                background:url(~/assets/img/flame.png);
+                height: 24px;
+                width: 19px;
+                top: -22px;
+                left: 112px;
+            }
+        }
+    }
+    & .text-center{
+        margin-bottom: 16px;
+    }
+    &__text{
+        display: inline-block;
+        color: #fff;
+        line-height: 24px;
+        width: 600px;
+        margin-bottom: 0px;
+    }
+    &__subtext{
+        color:#fff;
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+    &__form{
+        margin-bottom: 56px;
+        display: inline-block;
+        width: 250px;
+        &-wrapper{
+            text-align: center;
+        }
+    }
+    &__label{
+        display: block;
+        text-align-last: left;
+        color:#fff;
+        margin-bottom: 4px;
+        font-size: 14px;
+    }
+    &__input{
+        height: 40px;
+        border: none;
+        border-radius:$border-radius;
+        padding-left: 16px;
+        width: 100%;
+        margin-left: 0;
+        color:#58585A;
+    }
+    &-callback{
+        padding: 156px 0 243px;
+    }
+}
+// Slider
+.voting-slider{
+    &__btn-wrapper{
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+    &__btn{
+        cursor: pointer;
+        position: relative;
+        height: 200px;
+        width: 200px;
+        &:hover{
+            .voting-slider__btn-label{
+                color:$main-color;
+            }
+        }
+        &-label{
+            color:#fff;
+            position: absolute;
+            text-align: center;
+            display: inline-block;
+            width: 100%;
+            bottom: 20px;   
+            transition: all .3s ease-in-out;       
+        }
+    }
+    &__game{
+        &::after,&::before{
+            display: none;
+        }
+        & .game__btn{
+            display: none;
+        }
+    }
+}

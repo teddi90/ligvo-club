@@ -1,5 +1,5 @@
 <template>
-    <div class="frame" :class="{ down: downFrame }">
+    <div class="frame" :class="{ down: props.downFrame }">
         <img
             v-if="downFrame"
             class="frame__img"
@@ -16,8 +16,10 @@
 </template>
 
 <script setup>
-defineProps({
-    downFrame: Boolean,
-    default: false,
+const props = defineProps({
+    downFrame: {
+        type: Boolean,
+        default: false,
+    },
 });
 </script>

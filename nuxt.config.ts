@@ -29,6 +29,7 @@ export default defineNuxtConfig({
     modules: [
         '@vee-validate/nuxt',
         '@pinia/nuxt',
+        'nuxt-swiper',
     ],
     pinia: {
         autoImports: ['defineStore',]

@@ -34,20 +34,25 @@ body{
     }
 
 } 
+.text-center{
+    text-align: center;
+}
 
 // Form
 .form{
-    background-color: $main-color;
+    background-color: $main-gradient;
     padding: 60px 80px;
-    border-radius:$border-radius;
     h3{
         font-size: 32px;
         font-weight: 600;
         margin-bottom: 24px;
+        color:#fff;
     }
     p{
         font-weight: 600;
         margin-bottom: 24px;
+        color:#fff;
+
     }   
     &__input{
         width: 100%;
@@ -55,7 +60,7 @@ body{
         padding: 0 12px;
         border:none;
         border-bottom:1px solid rgba(0,0,0,.42);
-        background-color: $main-color;
+        background: $main-gradient;
         &:focus{
             outline: none;
         }
@@ -70,7 +75,7 @@ body{
     &__textarea{
         width: 100%;
         padding: 18px 12px;
-        background-color: $main-color;
+        background: $main-gradient;
         border:1px solid rgba(0,0,0,.42);
         border-radius:calc($border-radius / 2);
         margin-bottom: 48px;
@@ -139,18 +144,97 @@ body{
     &__content{
         margin: 0 25px;
         position: relative;
-        background-color: #fff;
         border-radius:$border-radius;
-        background-color: $main-color;
+        background: $main-gradient;
         width: 600px;
         padding: 64px 16px 24px;
         box-sizing:border-box;
     }
     &__btn_close{
+        color:$main-color;
         position: absolute;
         right: 16px;
         top: 28px;
         cursor: pointer;
+    }
+}
+// Filter Modal
+.filter-modal{
+    .modal__content {
+        background: $main-gradient;
+        padding: 60px 135px 64px;
+        width: 1155px;
+    }
+    .modal__btn_close{
+        right: 48px;
+        top: 65px;
+    }
+}
+// Filter Form
+.filter{
+    &__title{
+        text-transform: uppercase;
+        color:$main-color;
+        text-align: center;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 78px;
+    }
+    &__category{
+        font-weight: 500;
+        color:#fff;
+        font-size: 18px;
+        margin-bottom: 32px;
+    }
+    &__group{
+        position: relative;
+        margin-bottom: 10px;
+    }
+    &__checkbox{
+        position: absolute;
+        z-index: -999999;
+        &:checked + .filter__label::after{
+            display: block;
+        }
+    }
+    &__label{
+        // position: relative;
+        color:#fff;
+        margin-left: 36px;
+        cursor: pointer;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none; 
+        -khtml-user-select: none; 
+        -moz-user-select: none; 
+        user-select: none;
+        &::before{
+            content: "";
+            display: block;
+            height: 18px;
+            width: 18px;
+            border-radius:5px;
+            border: 1.5px solid #FFFFFF;
+            position: absolute;
+            top: 4px;
+            left: 7px;
+        }
+        &::after{
+            content: "";
+            display: none;
+            position: absolute;
+            background: url(~/assets/img/checked.png);
+            height: 5px;
+            width: 8px;
+            left: 12px;
+            top: 11px;
+        }
+    }
+    &__btn{
+        
+        margin-top: 84px;
+        padding:10px;
+        width: 490px;
+        display: inline-block;
     }
 }
 
@@ -158,7 +242,6 @@ body{
 .frame{
     position: relative;
     text-align: center;
-    
     &::after{
         content: '';
         position: absolute;
@@ -173,7 +256,6 @@ body{
         &::after{
             top: -1px;
         }
-        
     }
 }
 
@@ -236,6 +318,23 @@ body{
         margin-bottom: 14px;
         position: relative;
         z-index: 1;
+        &_indicators{
+            font-size: 0;
+        }
+        &_indicator{
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #D9D9D9;
+            opacity: 0.2;
+            border-radius:1px;
+            &:not(:last-child){
+                margin-right: 2px;
+            }
+            &.active{
+                opacity: 1;
+            }
+        }
         &_item{
             color: #fff;
             display: inline-flex;
@@ -247,6 +346,15 @@ body{
             background: rgba(0, 0, 0, 0.2);
             box-shadow: 0px 0px 5px rgba(75, 0, 0, 0.31);
             border-radius: 8px;
+            &-wrapper{
+                display: flex;
+            }
+            .game__info_indicator:nth-child(2){
+                height: 14px;
+            }
+            .game__info_indicator:nth-child(3){
+                height: 17px;
+            }
             &:not(:last-child){
                 margin-right: 8px;
             }
@@ -258,6 +366,10 @@ body{
                 line-height: 11px;
             }
         }
+        
+    }
+    &__info_indicator-wrapper{
+        width: 54px;
     }
     &__text {
         margin-bottom: 24px;
