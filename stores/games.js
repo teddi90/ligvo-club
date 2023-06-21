@@ -35,7 +35,7 @@ export const useGamesStore = defineStore('games', {
     actions: {
         async fetchAllGames() {
             this.isFetchingData = true;
-            const { data: resp } = await useWpApi().get('boardgames');
+            const { data: resp } = await useWpApi().getGames();
             this.allGames = toRaw(resp.value);
             this.isFetchingData = false;
         }

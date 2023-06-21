@@ -7,15 +7,15 @@ export default () => {
         return useFetch(`${wpUri}/wp-json/wp/v2/${endpoint}`);
     }
 
-    // Get All posts
-    const getPosts = async () => {
-        let query = `boardgames`;
+    // Get All games
+    const getGames = async () => {
+        let query = `games`;
         return get(query);
     }
 
-    // Get a Single Post
-    const getPost = async (slug) => get(`boardgames?slug=${slug}&_embed`);
+    // Get a Single Game
+    const getGame = async (slug) => get(`games?slug=${slug}&_embed`);
 
-    return { get, getPost, getPosts }
+    return { get, getGame, getGames }
 
 }

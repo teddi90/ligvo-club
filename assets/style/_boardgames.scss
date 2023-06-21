@@ -50,7 +50,11 @@
             color:$second-color;
             .filter-img{
                 color:$second-color;
+                &__indicator{
+                    background:$main-color;
+                }
             }
+
         }
         svg{
             transition: color .3s ease-in-out;
@@ -76,10 +80,12 @@
         height: 13px;
         width: 13px;
         border-radius:50%;
-        background-color:$second-color;
+        background:$second-color;
         left: 12px;
         top: 5px;
         font-size: 9px;
+        transition: background .3s ease-in-out;
+
     }
 }
 

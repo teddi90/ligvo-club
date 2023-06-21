@@ -190,13 +190,13 @@ const playSliderLikeAnimation = () => {
     sliderLike.value.play();
     setTimeout(() => {
         sliderLike.value.stop();
-    }, 2000);
+    }, 1600);
 };
 const playSliderDislikeAnimation = () => {
     sliderDislike.value.play();
     setTimeout(() => {
         sliderDislike.value.stop();
-    }, 2000);
+    }, 1600);
 };
 const goToNextSlide = () => {
     swiper.value.slideNext();
