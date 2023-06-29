@@ -3,38 +3,30 @@
         <figure>
             <div class="game__img_wrapper">
                 <img
-                    :src="game.better_featured_image.source_url"
-                    :alt="game.name"
+                    :src="game.image.guid"
+                    :alt="game.game_title"
                     class="game__img"
                 />
             </div>
         </figure>
         <figcaption>
             <div class="game__info">
-                <h3 class="game__title">{{ game.acf.name }}</h3>
+                <h3 class="game__title">{{ game.game_title }}</h3>
                 <div class="game__info_item-wrapper">
                     <div class="game__info_item game__info_indicator-wrapper">
                         <div class="game__info_indicators">
+                            <span class="game__info_indicator active"></span>
                             <span
                                 :class="{
                                     active:
-                                        props.game.acf.difficult === 'easy' ||
-                                        props.game.acf.difficult === 'medium' ||
-                                        props.game.acf.difficult === 'hard',
+                                        props.game.difficult[0] === 'medium' ||
+                                        props.game.difficult[0] === 'hard',
                                 }"
                                 class="game__info_indicator"
                             ></span>
                             <span
                                 :class="{
-                                    active:
-                                        props.game.acf.difficult === 'medium' ||
-                                        props.game.acf.difficult === 'hard',
-                                }"
-                                class="game__info_indicator"
-                            ></span>
-                            <span
-                                :class="{
-                                    active: props.game.acf.difficult === 'hard',
+                                    active: props.game.difficult[0] === 'hard',
                                 }"
                                 class="game__info_indicator"
                             ></span>
@@ -55,9 +47,7 @@
                             />
                         </svg>
                         <span
-                            >{{ game.acf.min_players }}-{{
-                                game.acf.max_players
-                            }}</span
+                            >{{ game.min_players }}-{{ game.max_players }}</span
                         >
                     </div>
                     <div class="game__info_item">
@@ -73,12 +63,12 @@
                                 fill="white"
                             />
                         </svg>
-                        <span>{{ game.acf.duration }} хв</span>
+                        <span>{{ game.duration }} хв</span>
                     </div>
                 </div>
             </div>
             <p class="game__text">
-                {{ game.acf.description }}
+                {{ game.description }}
             </p>
             <a @click="showModal" class="btn game__btn" href="#"
                 >Забронювати гру</a

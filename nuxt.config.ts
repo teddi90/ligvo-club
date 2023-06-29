@@ -23,7 +23,8 @@ export default defineNuxtConfig({
             googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
             telegramToken: process.env.TELEGRAM_TOKEN,
             telegramChatId: process.env.TELEGRAM_CHAT_ID,
-
+            wpApiUserName: process.env.WP_API_USER_NAME,
+            wpApiUserPassword: process.env.WP_API_USER_PASSWORD,
         },
     },
     modules: [

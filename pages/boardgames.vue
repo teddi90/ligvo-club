@@ -78,84 +78,7 @@
                     />
                 </form>
             </div>
-            <div class="voting-slider">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="voting-slider__btn-wrapper">
-                            <div
-                                @click="
-                                    playSliderDislikeAnimation();
-                                    goToNextSlide();
-                                "
-                                class="voting-slider__btn voting-slider__btn-next"
-                            >
-                                <client-only>
-                                    <Vue3Lottie
-                                        ref="sliderDislike"
-                                        class="voting-slider__btn-img"
-                                        :animationData="dislikeJSON"
-                                        :autoPlay="false"
-                                        :loop="false"
-                                        :height="100"
-                                        :width="100"
-                                    />
-                                    <span class="voting-slider__btn-label"
-                                        >Це не для мене</span
-                                    >
-                                </client-only>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <Swiper
-                            @swiper="onSwiper"
-                            :modules="[EffectCards, Navigation]"
-                            :slides-per-view="1"
-                            :loop="false"
-                            :effect="'cards'"
-                            :grabCursor="true"
-                        >
-                            <SwiperSlide
-                                v-for="game in store.getAllGames"
-                                :key="game.id"
-                                class="col-md-6"
-                            >
-                                <CardGame
-                                    class="voting-slider__game"
-                                    :game="game"
-                                    @showModal="showModal"
-                                />
-                            </SwiperSlide>
-                        </Swiper>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="voting-slider__btn-wrapper">
-                            <div
-                                @click="
-                                    playSliderLikeAnimation();
-                                    goToNextSlide();
-                                "
-                                class="voting-slider__btn"
-                            >
-                                <client-only>
-                                    <Vue3Lottie
-                                        ref="sliderLike"
-                                        class="voting-slider__btn-img"
-                                        :animationData="likeJSON"
-                                        :autoPlay="false"
-                                        :loop="false"
-                                        :height="100"
-                                        :width="100"
-                                    />
-                                    <span class="voting-slider__btn-label"
-                                        >Сподобалось</span
-                                    >
-                                </client-only>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <VotingSlider />
         </div>
     </section>
     <Callback class="tinder-callback" @showModal="showModal" />
@@ -166,18 +89,12 @@
 </template>
 
 <script setup>
-import { useSwiper } from "swiper/vue";
-import { EffectCards, Navigation } from "swiper";
 import { useGamesStore } from "~/stores/games";
 import useModal from "~/mixins/useModal";
-import likeJSON from "~/assets/img/like.json";
-import dislikeJSON from "~/assets/img/dislike.json";
 
-const swiper = ref();
 const store = useGamesStore();
 const isFilterVisible = ref(false);
-const sliderDislike = ref(null);
-const sliderLike = ref(null);
+
 const { isModalVisible, showModal, hideModal } = useModal();
 
 const showFilter = () => {
@@ -186,22 +103,6 @@ const showFilter = () => {
 const hideFilter = () => {
     isFilterVisible.value = false;
 };
-const playSliderLikeAnimation = () => {
-    sliderLike.value.play();
-    setTimeout(() => {
-        sliderLike.value.stop();
-    }, 1600);
-};
-const playSliderDislikeAnimation = () => {
-    sliderDislike.value.play();
-    setTimeout(() => {
-        sliderDislike.value.stop();
-    }, 1600);
-};
-const goToNextSlide = () => {
-    swiper.value.slideNext();
-};
-const onSwiper = (instance) => (swiper.value = instance);
 
 store.fetchAllGames();
 onMounted(() => {});

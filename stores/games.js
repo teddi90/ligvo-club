@@ -2,7 +2,7 @@ export const useGamesStore = defineStore('games', {
     state: () => ({
         allGames: [],
         isFetchingData: false,
-        isModalVisible: false,
+        // isModalVisible: false,
         categories: [
             { name: 'Настільні ігри', id: 'board_game' },
             { name: 'Рольові ігри', id: 'role_game' },
@@ -53,21 +53,21 @@ export const useGamesStore = defineStore('games', {
             }
             return state.allGames
                 .filter((game) => {
-                    return state.filter.category ? game.acf.category === state.filter.category : true;
+                    return state.filter.category ? game.game_category[0] === state.filter.category : true;
                 })
                 .filter((game) => {
-                    return state.filter.difficulties.length ? state.filter.difficulties.includes(game.acf.difficult) : true;
+                    return state.filter.difficulties.length ? state.filter.difficulties.includes(game.difficult[0]) : true;
                 })
                 .filter((game) => {
                     return state.filter.durations.length ? state.filter.durations.filter((duration) => {
                         const durationsArr = duration.split('-');
-                        return +game.acf.duration >= +durationsArr[0] && +game.acf.duration <= +durationsArr[1]
+                        return +game.duration >= +durationsArr[0] && +game.duration <= +durationsArr[1]
                     }).length : true;
                 })
                 .filter((game) => {
                     return state.filter.quantityOfPlayers.length ? state.filter.quantityOfPlayers.filter((quantity) => {
                         const quantityArr = quantity.split('-');
-                        return +game.acf.min_players >= +quantityArr[0] && +game.acf.max_players <= +quantityArr[1]
+                        return +game.min_players >= +quantityArr[0] && +game.max_players <= +quantityArr[1]
                     }).length : true;
                 })
         },
