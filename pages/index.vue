@@ -19,9 +19,9 @@
                     настільних ігор
                 </h1>
                 <div class="hero__btn-wrapper">
-                    <a @click="showModal" class="hero__btn" href="#"
-                        >Забронювати гру</a
-                    >
+                    <button @click="showModal" class="hero__btn">
+                        Забронювати гру
+                    </button>
                 </div>
             </div>
         </div>
@@ -113,7 +113,7 @@
 </template>
 
 <script setup>
-import useModal from "~/mixins/useModal";
+import useModal from "~/composables/useModal";
 const heroLayer1 = ref(null);
 const heroLayer2 = ref(null);
 const heroContent = ref(null);

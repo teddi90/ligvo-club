@@ -1,10 +1,11 @@
 <template>
     <UILoader v-if="!store.getAllGames.length && store.isFetchingData" />
+    <UIModal :isModalVisible="isModalVisible" @hideModal="hideModal">
+        <UIForm />
+    </UIModal>
     <section class="board-games">
         <div class="board-games__bg"></div>
-        <UIModal :isModalVisible="isModalVisible" @hideModal="hideModal">
-            <UIForm />
-        </UIModal>
+
         <div class="container">
             <div class="board-games__top">
                 <h2 class="title">Настільнi ігри</h2>
@@ -81,6 +82,7 @@
             <VotingSlider />
         </div>
     </section>
+
     <Callback class="tinder-callback" @showModal="showModal" />
     <section class="map-wrapper">
         <Map />
@@ -90,7 +92,7 @@
 
 <script setup>
 import { useGamesStore } from "~/stores/games";
-import useModal from "~/mixins/useModal";
+import useModal from "~/composables/useModal";
 
 const store = useGamesStore();
 const isFilterVisible = ref(false);

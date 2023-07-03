@@ -88,7 +88,7 @@
 import { useSwiper } from "swiper/vue";
 import { useGamesStore } from "~/stores/games";
 import { EffectCards, Navigation } from "swiper";
-import useModal from "~/mixins/useModal";
+import useModal from "~/composables/useModal";
 import likeJSON from "~/assets/img/like.json";
 import dislikeJSON from "~/assets/img/dislike.json";
 

@@ -10,9 +10,9 @@
                         гру або хочете дізнатись будь-яку іншу інформацію.
                     </p>
                     <div class="callback-btn__wrapper">
-                        <a @click="showModal" class="btn" href="#"
-                            >Написати у Телеграм</a
-                        >
+                        <button @click="showModal" class="btn">
+                            Написати у Телеграм
+                        </button>
                         <img
                             src="~/assets/img/flag.png"
                             class="callback-btn__flag"

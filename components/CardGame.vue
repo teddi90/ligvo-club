@@ -70,9 +70,9 @@
             <p class="game__text">
                 {{ game.description }}
             </p>
-            <a @click="showModal" class="btn game__btn" href="#"
-                >Забронювати гру</a
-            >
+            <button @click="showModal" class="btn game__btn">
+                Забронювати гру
+            </button>
         </figcaption>
     </div>
 </template>
