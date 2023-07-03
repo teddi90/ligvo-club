@@ -9,7 +9,7 @@
         <div class="container">
             <div class="board-games__top">
                 <h2 class="title">Настільнi ігри</h2>
-                <a @click="showFilter" href="#" class="board-games__filter">
+                <button @click="showFilter" class="board-games__filter">
                     <div class="filter-img__wrapper">
                         <svg
                             class="filter-img"
@@ -31,7 +31,7 @@
                         >
                     </div>
                     Фільтр
-                </a>
+                </button>
                 <UIModal
                     class="filter-modal"
                     :isModalVisible="isFilterVisible"

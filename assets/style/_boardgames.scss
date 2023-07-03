@@ -42,6 +42,8 @@
     &__filter{
         display: inline-block;
         position: absolute;
+        background:transparent;
+        border:none;
         right: 0;
         top: 50%;
         transform: translateY(-50%);
