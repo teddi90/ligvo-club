@@ -2,7 +2,7 @@
     padding: 20px 0 25px;
     background-image:url(~/assets/img/crystal_left.png),url(~/assets/img/crystal_right.png), $main-gradient;
     background-repeat:no-repeat;
-    background-position:top left, bottom right;
+    background-position:top left, bottom right, top left;
     @include media('md'){
         display: none;
     }
@@ -97,6 +97,11 @@
             color:#fff;
             margin: 0;
         }
+    }
+    &-about{
+        padding: 135px 0 25px;
+        background-position-x:left, right,left ;
+        background-position-y:115px, bottom ,top ;
     }
 
 }

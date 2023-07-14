@@ -139,6 +139,7 @@ body{
     right: 0;
     background-color: rgba(0,0,0,0.4);
     position: fixed;
+    z-index: 99999999999;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -376,6 +377,7 @@ body{
         margin-bottom: 24px;
         height: 144px;
         overflow: hidden;
+        text-align: left;
     }
     &__btn {
         padding: 7px;

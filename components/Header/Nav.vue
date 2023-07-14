@@ -10,8 +10,8 @@
                     </div>
                     <ul class="menu">
                         <li class="menu__item">
-                            <a class="menu__link menu__link_sub-menu" href="#"
-                                >Каталог Ігор</a
+                            <span class="menu__link menu__link_sub-menu"
+                                >Каталог Ігор</span
                             >
                             <ul class="sub-menu">
                                 <li class="sub-menu__item">
@@ -37,7 +37,7 @@
                             </ul>
                         </li>
                         <li class="menu__item">
-                            <NuxtLink class="menu__link" to="#"
+                            <NuxtLink class="menu__link" to="/about"
                                 >Про нас</NuxtLink
                             >
                         </li>

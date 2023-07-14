@@ -4,7 +4,6 @@
         <p>Ми відповімо Вам протягом 24 годин</p>
         <div class="form__input-wrapper">
             <Field
-                v-model.trim="userName"
                 class="form__input"
                 name="name"
                 type="text"
@@ -15,7 +14,6 @@
         <div class="form__input-wrapper">
             <Field
                 :rules="validateEmail"
-                v-model="userMail"
                 class="form__input"
                 type="email"
                 name="email"
@@ -26,7 +24,6 @@
         <div class="form__input-wrapper">
             <Field
                 :rules="validatePhone"
-                v-model.trim="userPhone"
                 class="form__input"
                 type="tel"
                 name="phone"
@@ -36,7 +33,6 @@
         </div>
         <div class="form__input-wrapper">
             <Field
-                v-model.trim="userMessage"
                 class="form__textarea"
                 placeholder="Текст"
                 type="text"
@@ -66,20 +62,16 @@ const config = useRuntimeConfig();
 const TOKEN = config.public.telegramToken;
 const CHAT_ID = config.public.telegramChatId;
 
-const userName = ref("");
-const userMail = ref("");
-const userPhone = ref("");
-const userMessage = ref("");
 const resultMessage = ref({ isShow: false, status: "", message: "" });
 
-const onSubmit = (value, { resetForm }) => {
+const onSubmit = async (value, { resetForm }) => {
     const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
-    let message = `<b>Ім'я: </b>${userName.value}\n`;
-    message += `<b>Емейл: </b>${userMail.value}\n`;
-    message += `<b>Телефон: </b>${userPhone.value}\n`;
-    message += `<b>Повідомлення: </b>${userMessage.value}`;
+    let message = `<b>Ім'я: </b>${value.name}\n`;
+    message += `<b>Емейл: </b>${value.email}\n`;
+    message += `<b>Телефон: </b>${value.phone}\n`;
+    message += `<b>Повідомлення: </b>${value.message}`;
 
-    useFetch(URI_API, {
+    await useFetch(URI_API, {
         method: "POST",
         params: { chat_id: CHAT_ID, parse_mode: "html", text: message },
         onResponse({ request, response, options }) {
@@ -115,7 +107,6 @@ const validatePhone = (value) => {
     if (!regex.test(value) && value) {
         return "Введіть номер телефону в форматі +380";
     }
-    // All is good
     return true;
 };
 const validateEmail = (value) => {

@@ -5,7 +5,6 @@
     </UIModal>
     <section class="board-games">
         <div class="board-games__bg"></div>
-
         <div class="container">
             <div class="board-games__top">
                 <h2 class="title">Настільнi ігри</h2>
@@ -70,19 +69,42 @@
                 *Для участі у грі необхідно вказати Ваш номер телефону
             </p>
             <div class="tinder__form-wrapper">
-                <form class="tinder__form">
-                    <label class="tinder__label">Номер телефону</label>
-                    <input
-                        type="text"
-                        class="tinder__input"
-                        placeholder="+380"
-                    />
-                </form>
+                <VeeForm
+                    class="tinder__form"
+                    v-slot="{ validate, values }"
+                    as="div"
+                >
+                    <form @submit.prevent>
+                        <div class="tinder__phone-wrapper">
+                            <label class="tinder__label">Номер телефону</label>
+                            <Field
+                                :rules="isPhoneNumberValid"
+                                :validateOnBlur="true"
+                                class="tinder__input"
+                                type="tel"
+                                name="phone"
+                                placeholder="+380"
+                            />
+                            <ErrorMessage
+                                class="tinder__input-error"
+                                name="phone"
+                            />
+                        </div>
+                        <VotingSlider
+                            @add-like="handleAddLike($event, values, validate)"
+                            @add-dislike="
+                                handleAddDislike($event, values, validate)
+                            "
+                            :sliderGameCards="sliderGameCards"
+                            :votedMessage="votedMessage"
+                            :localUserVoted="localUserVoted"
+                            :isUserPhoneValid="isUserPhoneValid"
+                        />
+                    </form>
+                </VeeForm>
             </div>
-            <VotingSlider />
         </div>
     </section>
-
     <Callback class="tinder-callback" @showModal="showModal" />
     <section class="map-wrapper">
         <Map />
@@ -91,13 +113,26 @@
 </template>
 
 <script setup>
+import { Form as VeeForm, Field, ErrorMessage } from "vee-validate";
+import { storeToRefs } from "pinia";
 import { useGamesStore } from "~/stores/games";
 import useModal from "~/composables/useModal";
 
 const store = useGamesStore();
 const isFilterVisible = ref(false);
+let localUserVoted = ref([]);
+const votedMessage = ref("");
+const currentVotedGames = ref([]);
+const { allGames } = storeToRefs(store);
+const isUserPhoneValid = ref(true);
 
 const { isModalVisible, showModal, hideModal } = useModal();
+
+const sliderGameCards = computed(() => {
+    return allGames.value.filter(
+        (game) => !currentVotedGames.value.includes(game.id)
+    );
+});
 
 const showFilter = () => {
     isFilterVisible.value = true;
@@ -105,7 +140,82 @@ const showFilter = () => {
 const hideFilter = () => {
     isFilterVisible.value = false;
 };
+const isPhoneNumberValid = (value) => {
+    const regex = /(?=.*\+[0-9]{3}\s?[0-9]{2}\s?[0-9]{3}\s?[0-9]{4,5}$)/gm;
+    if (!value) {
+        isUserPhoneValid.value = false;
+        return "Це поле обов'язкове";
+    }
+    if (!regex.test(value) && value) {
+        return "Введіть номер телефону в форматі +380";
+        isUserPhoneValid.value = false;
+    }
+    isUserPhoneValid.value = true;
+    return true;
+};
+const changeVotedMessage = (message, duration) => {
+    votedMessage.value = message;
+    setTimeout(() => {
+        votedMessage.value = "";
+    }, duration);
+};
+const addLike = async ({ activeSlideGame, phone }) => {
+    if (localUserVoted.includes(activeSlideGame.id)) {
+        changeVotedMessage("Ви вже віддали свій голос за дану гру", 1500);
+    } else {
+        // useWpApi().incrementFieldValueById(
+        //     "likes",
+        //     activeSlideGame.id,
+        //     activeSlideGame.likes
+        // );
+        useWpApi().sendUserTinderApplication(activeSlideGame, phone);
+        localUserVoted.push(activeSlideGame.id);
+        localStorage.setItem(
+            "userVotedGamesId",
+            JSON.stringify(localUserVoted)
+        );
+        currentVotedGames.value.push(activeSlideGame.id);
+        changeVotedMessage("Дякуєм за ваш голос", 1500);
+    }
+};
+const addDislike = async ({ activeSlideGame, phone }) => {
+    if (localUserVoted.includes(activeSlideGame.id)) {
+        changeVotedMessage("Ви вже віддали свій голос за дану гру", 1500);
+    } else {
+        useWpApi().incrementFieldValueById(
+            "dislikes",
+            activeSlideGame.id,
+            activeSlideGame.dislikes
+        );
+        localUserVoted.push(activeSlideGame.id);
+        localStorage.setItem(
+            "userVotedGamesId",
+            JSON.stringify(localUserVoted)
+        );
+        currentVotedGames.value.push(activeSlideGame.id);
+        changeVotedMessage("Дякуєм за ваш голос", 1500);
+    }
+};
+
+const handleAddLike = async ({ activeSlideGame }, { phone }, validate) => {
+    const { valid } = await validate();
+
+    if (valid) {
+        addLike({ activeSlideGame, phone });
+    }
+};
+const handleAddDislike = async ({ activeSlideGame }, { phone }, validate) => {
+    const { valid } = await validate();
+
+    if (valid) {
+        addDislike({ activeSlideGame, phone });
+    }
+};
 
 store.fetchAllGames();
-onMounted(() => {});
+onMounted(() => {
+    localUserVoted = localStorage.userVotedGamesId
+        ? JSON.parse(localStorage.userVotedGamesId)
+        : [];
+});
 </script>

@@ -1,12 +1,12 @@
 <template>
-    <div class="voting-slider">
+    <div v-if="sliderGameCards.length" class="voting-slider">
         <div class="row">
             <div class="col-md-3">
                 <div class="voting-slider__btn-wrapper">
                     <div
                         @click="
                             playSliderDislikeAnimation();
-                            addDislike();
+                            submitPhoneNumber(false);
                         "
                         class="voting-slider__btn voting-slider__btn-next"
                     >
@@ -38,7 +38,7 @@
                         :grabCursor="true"
                     >
                         <SwiperSlide
-                            v-for="game in store.getAllGames"
+                            v-for="game in sliderGameCards"
                             :key="game.id"
                             class="col-md-6"
                         >
@@ -59,7 +59,7 @@
                     <div
                         @click="
                             playSliderLikeAnimation();
-                            addLike();
+                            submitPhoneNumber(true);
                         "
                         class="voting-slider__btn"
                     >
@@ -92,83 +92,66 @@ import useModal from "~/composables/useModal";
 import likeJSON from "~/assets/img/like.json";
 import dislikeJSON from "~/assets/img/dislike.json";
 
+const emit = defineEmits(["add-like", "add-dislike"]);
+const props = defineProps({
+    sliderGameCards: {
+        type: Array,
+        default: () => [],
+    },
+    votedMessage: {
+        type: String,
+        default: "",
+    },
+    localUserVoted: {
+        type: Array,
+        default: () => [],
+    },
+    isUserPhoneValid: {
+        type: Boolean,
+        default: true,
+    },
+});
+
 const swiper = ref();
 const store = useGamesStore();
 const sliderDislike = ref(null);
 const sliderLike = ref(null);
 const { isModalVisible, showModal, hideModal } = useModal();
-const config = useRuntimeConfig();
-const wpUri = config.public.wpUri;
-const wpUserName = config.public.wpApiUserName;
-const wpUserPassword = config.public.wpApiUserPassword;
-let localUserVoted = ref();
-const votedMessage = ref();
 
 const activeSlideGame = computed(() => {
-    return store.getAllGames[swiper.value.activeIndex];
+    return props.sliderGameCards[swiper.value.activeIndex];
 });
 
 const playSliderLikeAnimation = () => {
-    sliderLike.value.play();
-    setTimeout(() => {
-        sliderLike.value.stop();
-    }, 1600);
+    if (
+        !props.localUserVoted.includes(activeSlideGame.value.id) &&
+        props.isUserPhoneValid
+    ) {
+        sliderLike.value.play();
+        setTimeout(() => {
+            sliderLike.value.stop();
+        }, 1600);
+    }
 };
 const playSliderDislikeAnimation = () => {
-    sliderDislike.value.play();
-    setTimeout(() => {
-        sliderDislike.value.stop();
-    }, 1600);
+    if (
+        !props.localUserVoted.includes(activeSlideGame.value.id) &&
+        props.isUserPhoneValid
+    ) {
+        sliderDislike.value.play();
+        setTimeout(() => {
+            sliderDislike.value.stop();
+        }, 1600);
+    }
 };
-const goToNextSlide = () => {
-    swiper.value.slideNext();
-};
-const changeVotedMessage = (message, duration) => {
-    votedMessage.value = message;
-    setTimeout(() => {
-        votedMessage.value = "";
-    }, duration);
-};
+
 const onSwiper = (instance) => (swiper.value = instance);
-const addLike = async () => {
-    if (localUserVoted.includes(activeSlideGame.value.id)) {
-        changeVotedMessage("Ви вже віддали свій голос за дану гру", 1500);
+
+const submitPhoneNumber = (isLike) => {
+    if (isLike) {
+        emit("add-like", { activeSlideGame: { ...activeSlideGame.value } });
     } else {
-        useWpApi().incrementFieldValueById(
-            "likes",
-            activeSlideGame.value.id,
-            activeSlideGame.value.likes
-        );
-        localUserVoted.push(activeSlideGame.value.id);
-        localStorage.setItem(
-            "userVotedGamesId",
-            JSON.stringify(localUserVoted)
-        );
-        changeVotedMessage("Дякуєм за ваш голос", 1500);
-        goToNextSlide();
+        emit("add-dislike", { activeSlideGame: { ...activeSlideGame.value } });
     }
 };
-const addDislike = async () => {
-    if (localUserVoted.includes(activeSlideGame.value.id)) {
-        changeVotedMessage("Ви вже віддали свій голос за дану гру", 1500);
-    } else {
-        useWpApi().incrementFieldValueById(
-            "dislikes",
-            activeSlideGame.value.id,
-            activeSlideGame.value.dislikes
-        );
-        localUserVoted.push(activeSlideGame.value.id);
-        localStorage.setItem(
-            "userVotedGamesId",
-            JSON.stringify(localUserVoted)
-        );
-        changeVotedMessage("Дякуєм за ваш голос", 1500);
-        goToNextSlide();
-    }
-};
-onMounted(() => {
-    localUserVoted = localStorage.userVotedGamesId
-        ? JSON.parse(localStorage.userVotedGamesId)
-        : [];
-});
 </script>

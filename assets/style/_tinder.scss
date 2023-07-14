@@ -51,12 +51,16 @@
         margin-bottom: 16px;
     }
     &__form{
-        margin-bottom: 56px;
-        display: inline-block;
-        width: 250px;
+        
         &-wrapper{
             text-align: center;
         }
+    }
+    &__phone-wrapper{
+        width: 250px;
+        margin-bottom: 56px;
+        display: inline-block;
+        position: relative;
     }
     &__label{
         display: block;
@@ -73,6 +77,15 @@
         width: 100%;
         margin-left: 0;
         color:#58585A;
+        &-error{
+            position: absolute;
+            bottom: -22px;
+            left: 0;
+            font-size: 14px;
+            color: red;
+            width: 300px;
+            text-align: left;
+        }
     }
     &-callback{
         padding: 156px 0 243px;
@@ -117,8 +130,8 @@
         &-label{
             color:#fff;
             position: absolute;
-            text-align: center;
-            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
             width: 100%;
             bottom: 20px;   
             transition: all .3s ease-in-out;       
