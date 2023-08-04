@@ -1,5 +1,5 @@
 <template>
-    <div class="frame" :class="{ down: props.downFrame }">
+    <div class="frame" :class="{ frame_down: props.downFrame }">
         <img
             v-if="downFrame"
             class="frame__img"

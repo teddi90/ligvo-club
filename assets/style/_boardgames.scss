@@ -1,9 +1,12 @@
 .board-games{
     padding: 200px 0 54px;
     position: relative;
-    background:  #000;
+    background:#101010;
     z-index: 2;
     overflow: hidden;
+    @include media('sm'){
+        padding: 160px 0 56px;
+    }
     &::before{
         content: '';
         position: absolute;
@@ -13,8 +16,15 @@
         height: 371px;
         background:url(~/assets/img/sparks.png);
         background-repeat: no-repeat;
-        background-position: center top, left top;
+        background-position: center top;
         z-index: 1;
+        @include media('sm'){
+            background-image:url(~/assets/img/sparks_mobile.png);
+            background-position-x: center ;
+            background-position-y: 20px;
+            height: 90px;
+            top: 62px;
+        }
     }    
     &__bg{
         position: absolute;
@@ -27,6 +37,9 @@
         z-index: 0;
         border-bottom-right-radius: 688px 122px;
         border-bottom-left-radius: 688px 122px;
+        @include media('sm'){
+            display: none;
+        }
     }
     .container{
         position: relative;
@@ -38,18 +51,24 @@
     &__top{
         position: relative;
         margin-bottom: 57px;
+        @include media('sm'){
+            margin-bottom: 74px;
+        }
     }
     &__filter{
         display: inline-block;
         position: absolute;
         background:transparent;
+        top:-60px;
         border:none;
         right: 0;
-        top: 50%;
-        transform: translateY(-50%);
         color:$main-color;
         text-decoration: none;
         transition: color .3s ease-in-out;
+        @include min-media('sm'){
+            top: 50%;
+            transform: translateY(-50%);
+        }
         &:hover{
             color:$second-color;
             .filter-img{

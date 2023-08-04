@@ -1,6 +1,7 @@
 // Colors
 $main-color:#DD9E46;
-$second-color:#EB4747;
+// $second-color:#EB4747;
+$second-color:#DB3A30;
 $main-gradient:linear-gradient(269.99deg, #35131F 0%, #641739 46.87%, #361420 99.98%);
 
 
@@ -19,3 +20,7 @@ $beack-points: ("xl":1430px,
     "md": 992px,
     "sm": 768px,
     "xs": 576px);
+
+// For mobile menu
+$cubic: cubic-bezier(0.4, 0.01, 0.165, 0.99);
+$menuItems: 3;    

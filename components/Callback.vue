@@ -10,9 +10,13 @@
                         гру або хочете дізнатись будь-яку іншу інформацію.
                     </p>
                     <div class="callback-btn__wrapper">
-                        <button @click="showModal" class="btn">
+                        <a
+                            href="https://t.me/+380954314083"
+                            target="_blank"
+                            class="btn"
+                        >
                             Написати у Телеграм
-                        </button>
+                        </a>
                         <img
                             src="~/assets/img/flag.png"
                             class="callback-btn__flag"
@@ -25,8 +29,4 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["showModal"]);
-const showModal = (e) => {
-    emit("showModal", e.target);
-};
 </script>

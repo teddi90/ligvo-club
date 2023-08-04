@@ -70,7 +70,13 @@
             <p class="game__text">
                 {{ game.description }}
             </p>
-            <button @click="showModal" class="btn game__btn">
+            <button
+                @click="
+                    showModal();
+                    setReservedGame(game.game_title);
+                "
+                class="btn game__btn"
+            >
                 Забронювати гру
             </button>
         </figcaption>
@@ -78,7 +84,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["showModal"]);
+const emit = defineEmits(["showModal", "setReservedGame"]);
 const props = defineProps({
     game: {
         type: Object,
@@ -86,6 +92,9 @@ const props = defineProps({
     },
 });
 const showModal = (e) => {
-    emit("showModal", e.target);
+    emit("showModal");
+};
+const setReservedGame = (gameTitle) => {
+    emit("setReservedGame", gameTitle);
 };
 </script>

@@ -1,10 +1,10 @@
 <template>
-    <header class="header">
+    <header class="header" ref="header">
         <div class="container">
             <nav class="nav">
                 <div class="nav__wrapper">
                     <div class="nav__logo">
-                        <NuxtLink to="/">
+                        <NuxtLink to="/" @click="closeMenu">
                             <img src="~/assets/img/logo.png" alt="Ligvo logo" />
                         </NuxtLink>
                     </div>
@@ -45,10 +45,75 @@
                             <a class="menu__link" href="#footer">Контакти</a>
                         </li>
                     </ul>
+                    <div @click="toggleMenu" class="burger-container">
+                        <div id="burger">
+                            <div class="bar bar-top">
+                                <img src="~/assets/img/mobile_left_arrow.svg" />
+                            </div>
+                            <div class="bar bar-mdl">
+                                <img
+                                    src="~/assets/img/mobile_right_arrow.svg"
+                                />
+                            </div>
+                            <div class="bar bar-btm">
+                                <img src="~/assets/img/mobile_left_arrow.svg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-mobile__wrapper">
+                    <div>
+                        <ul class="menu-mobile">
+                            <li class="menu-mobile__item">
+                                <button
+                                    @click="closeMenu"
+                                    class="menu-mobile__link"
+                                >
+                                    Каталог ігор
+                                </button>
+                            </li>
+                            <li class="menu-mobile__item">
+                                <NuxtLink
+                                    @click="closeMenu"
+                                    to="/about"
+                                    class="menu-mobile__link"
+                                    >Про нас</NuxtLink
+                                >
+                            </li>
+
+                            <li class="menu-mobile__item">
+                                <NuxtLink
+                                    @click="closeMenu"
+                                    to="#"
+                                    class="menu-mobile__link"
+                                    >Контакти</NuxtLink
+                                >
+                            </li>
+                        </ul>
+                        <div class="menu-mobile__bottom">
+                            <h4>Зв’язатися з нами</h4>
+                            <a href="tel:+0954314083" class="btn"
+                                >Зателефонувати</a
+                            >
+                            <a
+                                href="https://t.me/+380954314083"
+                                target="_blank"
+                                class="btn"
+                                >Телеграм чат</a
+                            >
+                        </div>
+                    </div>
                 </div>
             </nav>
         </div>
     </header>
 </template>
 <script setup>
+const header = ref(null);
+const toggleMenu = () => {
+    header.value.classList.toggle("menu-mobile-opened");
+};
+const closeMenu = () => {
+    header.value.classList.remove("menu-mobile-opened");
+};
 </script>

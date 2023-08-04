@@ -2,16 +2,41 @@
     padding: 20px 0 25px;
     background-image:url(~/assets/img/crystal_left.png),url(~/assets/img/crystal_right.png), $main-gradient;
     background-repeat:no-repeat;
-    background-position:top left, bottom right, top left;
+    @include min-media('md'){
+        background-position:top left, bottom right, top left;
+    }
     @include media('md'){
-        display: none;
+        padding: 30px 0;
+        background-position-x: -10px, calc(100% + 138px), left;
+        background-position-y: top,  calc(100% + 20px), top;
+     }
+    @include media('sm'){
+       padding: 40px 0;
+       background-position-y: top,  calc(100% + 55px), top;
     }
     &__logo{
         text-align: center;
         margin-bottom: 80px;
+        @include media('sm'){
+            margin-bottom: 40px;
+        }
+        img{
+            @include media('md'){
+                width: 185px;
+            }
+            @include media('sm'){
+                width: 160px;
+            }
+            @include media('xs'){
+                width: 120px;
+            }
+        }
     }
     &__info{
         margin-bottom: 70px;
+        @include media('md'){
+            margin-bottom: 40px;
+        }
     }
     &__info-contact, &__info-services{
         list-style: none;
@@ -20,6 +45,13 @@
         li:not(:last-child){
             margin-bottom: 16px;
             
+        }
+        @include media('md'){
+            text-align: left;
+            margin-bottom: 48px;
+        }
+        @include media('xs'){
+            text-align: center;
         }
         li{
             color:#fff;
@@ -35,12 +67,29 @@
     }
     &__info-services{
         padding-left: 130px;
+        @include media('md'){
+            padding-left: 0;
+        }
+        
     }
     &-social{
+        @include media('md'){
+            display: flex;
+            justify-content: space-around;
+        }
+        @include media('xs'){
+            flex-direction: column-reverse;
+        }
         &__list{
             list-style: none;
             padding: 0;
-            margin: 0;   
+            margin: 0; 
+            @include media('md'){
+                text-align: left;
+            }  
+            @include media('xs'){
+                text-align: center;
+            } 
             li{
                 margin-bottom: 16px;
             }
@@ -57,6 +106,9 @@
         &__text{
             color:#fff;
             margin-bottom: 8px;
+            @include media('xs'){
+                display: none;
+            }
         }
     }
     &__icons-wrapper{
@@ -80,6 +132,10 @@
         text-align: center;
         position: relative;
         padding-top: 37px;
+        @include media('xs'){
+            padding-top: 40px;
+            font-size: 12px;
+        }
         ::before{
             content: '';
             position: absolute;
@@ -90,12 +146,20 @@
             width: 500px;
             height: 1px;
             background: rgba(255,255,255,.4);
+            @include media('xs'){
+                width: 100%;
+            }
 
         }
         p{
             display: inline-block;
             color:#fff;
             margin: 0;
+        }
+        span{
+            @include media('xs'){
+                display: block;
+            }
         }
     }
     &-about{

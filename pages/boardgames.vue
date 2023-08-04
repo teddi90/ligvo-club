@@ -1,8 +1,17 @@
 <template>
     <UILoader v-if="!store.getAllGames.length && store.isFetchingData" />
     <UIModal :isModalVisible="isModalVisible" @hideModal="hideModal">
-        <UIForm />
+        <UIForm
+            :reservedGame="reservedGame"
+            @clearReservedGame="clearReservedGame"
+            @hideModal="hideModal"
+            :resultMessage="resultMessage"
+            v-model="resultMessage"
+        />
     </UIModal>
+    <div v-if="resultMessage.length" class="drop-down-info">
+        {{ resultMessage }}
+    </div>
     <section class="board-games">
         <div class="board-games__bg"></div>
         <div class="container">
@@ -45,7 +54,11 @@
                     :key="game.id"
                     class="col-md-6"
                 >
-                    <CardGame :game="game" @showModal="showModal" />
+                    <CardGame
+                        :game="game"
+                        @showModal="showModal"
+                        @setReservedGame="setReservedGame"
+                    />
                 </div>
             </div>
         </div>
@@ -90,14 +103,12 @@
                                 name="phone"
                             />
                         </div>
-                        <VotingSlider
+                        <TinderSlider
                             @add-like="handleAddLike($event, values, validate)"
-                            @add-dislike="
-                                handleAddDislike($event, values, validate)
-                            "
+                            @add-dislike="addDislike"
                             :sliderGameCards="sliderGameCards"
                             :votedMessage="votedMessage"
-                            :localUserVoted="localUserVoted"
+                            :sessionUserGames="sessionUserGames"
                             :isUserPhoneValid="isUserPhoneValid"
                         />
                     </form>
@@ -105,7 +116,7 @@
             </div>
         </div>
     </section>
-    <Callback class="tinder-callback" @showModal="showModal" />
+    <Callback class="tinder-callback" />
     <section class="map-wrapper">
         <Map />
     </section>
@@ -118,13 +129,19 @@ import { storeToRefs } from "pinia";
 import { useGamesStore } from "~/stores/games";
 import useModal from "~/composables/useModal";
 
+const config = useRuntimeConfig();
 const store = useGamesStore();
+const TOKEN = config.public.telegramToken;
+const CHAT_ID = config.public.telegramChatId;
+
+const { allGames } = storeToRefs(store);
 const isFilterVisible = ref(false);
-let localUserVoted = ref([]);
 const votedMessage = ref("");
 const currentVotedGames = ref([]);
-const { allGames } = storeToRefs(store);
 const isUserPhoneValid = ref(true);
+const reservedGame = ref("");
+const resultMessage = ref("");
+let sessionUserGames = ref([]);
 
 const { isModalVisible, showModal, hideModal } = useModal();
 
@@ -134,6 +151,12 @@ const sliderGameCards = computed(() => {
     );
 });
 
+const setReservedGame = (game) => {
+    reservedGame.value = game;
+};
+const clearReservedGame = () => {
+    reservedGame.value = "";
+};
 const showFilter = () => {
     isFilterVisible.value = true;
 };
@@ -147,8 +170,8 @@ const isPhoneNumberValid = (value) => {
         return "Це поле обов'язкове";
     }
     if (!regex.test(value) && value) {
-        return "Введіть номер телефону в форматі +380";
         isUserPhoneValid.value = false;
+        return "Введіть номер телефону в форматі +380";
     }
     isUserPhoneValid.value = true;
     return true;
@@ -159,41 +182,50 @@ const changeVotedMessage = (message, duration) => {
         votedMessage.value = "";
     }, duration);
 };
+
 const addLike = async ({ activeSlideGame, phone }) => {
-    if (localUserVoted.includes(activeSlideGame.id)) {
-        changeVotedMessage("Ви вже віддали свій голос за дану гру", 1500);
+    if (sessionUserGames.includes(activeSlideGame.id)) {
+        changeVotedMessage("Ви вже подали заявку на дану гру", 3000);
     } else {
-        // useWpApi().incrementFieldValueById(
-        //     "likes",
-        //     activeSlideGame.id,
-        //     activeSlideGame.likes
-        // );
-        useWpApi().sendUserTinderApplication(activeSlideGame, phone);
-        localUserVoted.push(activeSlideGame.id);
-        localStorage.setItem(
-            "userVotedGamesId",
-            JSON.stringify(localUserVoted)
-        );
-        currentVotedGames.value.push(activeSlideGame.id);
-        changeVotedMessage("Дякуєм за ваш голос", 1500);
+        const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+        let message = `<b>Tinder</b>\n`;
+        message += `<b>Гра: </b>${activeSlideGame.game_title}\n`;
+        message += `<b>Телефон: </b>${phone}\n`;
+        await useFetch(URI_API, {
+            method: "POST",
+            params: { chat_id: CHAT_ID, parse_mode: "html", text: message },
+            onResponse({ request, response, options }) {
+                if (response.status === 200) {
+                    sessionUserGames.push(activeSlideGame.id);
+                    sessionStorage.setItem(
+                        "userVotedGamesId",
+                        JSON.stringify(sessionUserGames)
+                    );
+                    currentVotedGames.value.push(activeSlideGame.id);
+                    changeVotedMessage(
+                        `Дякуєм за вашу заявку. Ми вже шукаєм гравців для організації гри ${activeSlideGame.game_title} для Вас`,
+                        3000
+                    );
+                }
+            },
+            onResponseError({ request, response, options }) {
+                if (response.status > 399) {
+                }
+            },
+        });
     }
 };
-const addDislike = async ({ activeSlideGame, phone }) => {
-    if (localUserVoted.includes(activeSlideGame.id)) {
-        changeVotedMessage("Ви вже віддали свій голос за дану гру", 1500);
+const addDislike = (activeSlideGame) => {
+    if (sessionUserGames.includes(activeSlideGame.id)) {
+        changeVotedMessage("Ви вже подали заявку на дану гру", 2000);
     } else {
-        useWpApi().incrementFieldValueById(
-            "dislikes",
-            activeSlideGame.id,
-            activeSlideGame.dislikes
-        );
-        localUserVoted.push(activeSlideGame.id);
-        localStorage.setItem(
-            "userVotedGamesId",
-            JSON.stringify(localUserVoted)
-        );
+        // sessionUserGames.push(activeSlideGame.id);
+        // sessionStorage.setItem(
+        //     "userVotedGamesId",
+        //     JSON.stringify(sessionUserGames)
+        // );
         currentVotedGames.value.push(activeSlideGame.id);
-        changeVotedMessage("Дякуєм за ваш голос", 1500);
+        changeVotedMessage("Дякуєм за ваш голос", 2000);
     }
 };
 
@@ -204,18 +236,18 @@ const handleAddLike = async ({ activeSlideGame }, { phone }, validate) => {
         addLike({ activeSlideGame, phone });
     }
 };
-const handleAddDislike = async ({ activeSlideGame }, { phone }, validate) => {
-    const { valid } = await validate();
+// const handleAddDislike = async ({ activeSlideGame }, { phone }, validate) => {
+//     const { valid } = await validate();
 
-    if (valid) {
-        addDislike({ activeSlideGame, phone });
-    }
-};
+//     if (valid) {
+//         addDislike({ activeSlideGame, phone });
+//     }
+// };
 
 store.fetchAllGames();
 onMounted(() => {
-    localUserVoted = localStorage.userVotedGamesId
-        ? JSON.parse(localStorage.userVotedGamesId)
+    sessionUserGames = sessionStorage.userVotedGamesId
+        ? JSON.parse(sessionStorage.userVotedGamesId)
         : [];
 });
 </script>

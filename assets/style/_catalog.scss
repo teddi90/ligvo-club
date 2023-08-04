@@ -1,15 +1,20 @@
 .catalog{
     padding: 170px 0 100px;
     background: #140e12;
-    background-image: url(~/assets/img/sparks.png), url(~/assets/img/sparks2.png),linear-gradient(180deg, #140e12 0%, rgba(16,16,16,1) 100%);
-    background-repeat: no-repeat no-repeat;
-    background-position: center 90px, center bottom;
+    @include media('sm'){
+        padding:36px 0 102px ;
+    }
+    @include min-media('sm'){
+        background-image: url(~/assets/img/sparks.png), url(~/assets/img/sparks2.png),linear-gradient(180deg, #140e12 0%, rgba(16,16,16,1) 100%);
+        background-repeat: no-repeat no-repeat;
+        background-position: center 90px, center bottom;
+    }
     .title{
         margin-bottom: 60px;
     }
     .frame{
         margin-bottom: 24px;
-        &.down{
+        &_down{
             margin-bottom: 0;
         }
     }
@@ -29,25 +34,52 @@
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 24px;
-    height: 453px;
+    @include min-media('lg'){
+        height: 453px;
+    }
+    @include media('sm'){
+        flex-direction: row;
+    }
+    @include media('xs'){
+        flex-direction: column;
+    }
     &__item{
-        display: flex;
-        flex: 1;
-        justify-content: center;
         position: relative;
         background-size: cover;
         background-repeat:no-repeat;
+        display: flex;
+        justify-content: center;
+        box-shadow: 0px 23px 100px 0px rgba(0, 0, 0, 0.63);
+        @include min-media('md'){     
+            flex: 1;
+        }
+        @include media('lg'){
+            height: 470px;
+        }
+        @include media('md'){
+            width: 50%;
+            height: 390px;
+        }
+        @include media('sm'){
+            align-items:center;
+            height: 425px;
+        }
+        @include media('xs'){
+            width: 100%;
+            height: 345px;
+        }
+
         &_1{
-            background: linear-gradient(180deg, rgba(27, 18, 34, 0.9) 14.06%, rgba(143, 0, 255, 0.1) 100%), url(~/assets/img/table_games.jpg);
+            background-image: linear-gradient(180deg, rgba(27, 18, 34, 0.9) 14.06%, rgba(143, 0, 255, 0.2) 100%), url(~/assets/img/table_games.jpg);
         }
         &_2{
-            background: linear-gradient(180deg, rgba(27, 18, 34, 0.9) 14.06%, rgba(143, 0, 255, 0.1) 100%), url(~/assets/img/role_games.jpg);
+            background-image: linear-gradient(180deg, rgba(27, 18, 34, 0.9) 14.06%, rgba(143, 0, 255, 0.2) 100%), url(~/assets/img/role_games.jpg);
         }
         &_3{
-            background: linear-gradient(180deg, rgba(27, 18, 34, 0.9) 14.06%, rgba(143, 0, 255, 0.1) 100%), url(~/assets/img/mtg.jpg);
+            background-image: linear-gradient(180deg, rgba(27, 18, 34, 0.9) 14.06%, rgba(143, 0, 255, 0.2) 100%), url(~/assets/img/mtg.jpg);
         }
         &_4{
-            background: linear-gradient(180deg, rgba(27, 18, 34, 0.9) 14.06%, rgba(143, 0, 255, 0.1) 100%), url(~/assets/img/wargames.jpg);
+            background-image: linear-gradient(180deg, rgba(27, 18, 34, 0.9) 14.06%, rgba(143, 0, 255, 0.2) 100%), url(~/assets/img/wargames.jpg);
         }
         &:hover{
             .catalog-wrapper__item_hover{
@@ -59,12 +91,18 @@
     &__title{
         font-weight: 500;
         font-size: 18px;
+        margin: 0;
         color:#fff;
         text-transform: uppercase;
         text-align: center;
         position: relative;
         z-index: 1;
         padding-top: 50px;
+        @include media('sm'){
+            font-size: 32px;
+            font-weight: 500;
+            padding: 0;
+        }
 
     }
     &__item_hover{
@@ -82,6 +120,18 @@
         z-index: 2;
         visibility: hidden;
         transition: all .4s linear;
+        @include media('lg'){
+        padding: 20px 16px ;
+        }
+        @include media('md'){
+            padding: 52px 16px 32px;
+        }
+        @include media('sm'){
+            padding: 22px 16px 16px;
+        }
+        @include media('xs'){
+            padding: 20px 16px 16px;
+        }
         h3{
             font-weight: 500;
             font-size: 18px;
@@ -89,6 +139,10 @@
             text-transform: uppercase;
             text-align: center;
             margin-bottom: 13px;
+            @include media('xs'){
+                margin-bottom: 10px;
+            }
+
         }
         p{
             color:#000;

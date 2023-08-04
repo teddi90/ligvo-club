@@ -26,7 +26,7 @@
             </div>
         </div>
         <UIModal :isModalVisible="isModalVisible" @hideModal="hideModal">
-            <UIForm />
+            <UIForm @hideModal="hideModal" />
         </UIModal>
     </section>
     <section class="catalog">
@@ -105,7 +105,7 @@
             <UIFrame :downFrame="true" />
         </div>
     </section>
-    <Callback @showModal="showModal" />
+    <Callback />
     <section class="map-wrapper">
         <Map />
     </section>
@@ -118,20 +118,40 @@ const heroLayer1 = ref(null);
 const heroLayer2 = ref(null);
 const heroContent = ref(null);
 const { showModal, isModalVisible, hideModal } = useModal();
+let windowWidth = null;
 
 const heroParalax = () => {
     let scrollValue = window.scrollY;
+    const setParalaxStyle = (startPoint, coefficient = 2.5) => {
+        heroLayer2.value.style.bottom = `${
+            startPoint + scrollValue / coefficient
+        }px`;
+        heroLayer2.value.style.filter = `brightness(${1 - scrollValue / 2000})`;
+        heroLayer1.value.style.filter = `brightness(${1 - scrollValue / 1000})`;
+        heroContent.value.style.filter = `brightness(${
+            1 - scrollValue / 1000
+        })`;
+    };
+
     if (scrollValue > 270) {
         heroContent.value.style.zIndex = 1;
     } else {
         heroContent.value.style.zIndex = 2;
     }
-    heroLayer2.value.style.bottom = `${-450 + scrollValue / 2}px`;
-    heroLayer2.value.style.filter = `brightness(${1 - scrollValue / 2000})`;
-    heroLayer1.value.style.filter = `brightness(${1 - scrollValue / 1000})`;
-    heroContent.value.style.filter = `brightness(${1 - scrollValue / 1000})`;
+
+    if (576 < windowWidth && windowWidth < 768) {
+        setParalaxStyle(308);
+    } else if (767 < windowWidth && windowWidth < 992) {
+        setParalaxStyle(145);
+    } else if (991 < windowWidth && windowWidth < 1200) {
+        setParalaxStyle(-64);
+    } else if (windowWidth > 1199) {
+        setParalaxStyle(-325, 2.3);
+    }
 };
+
 onMounted(() => {
+    windowWidth = window.innerWidth;
     window.addEventListener("scroll", heroParalax);
 });
 onUnmounted(() => {

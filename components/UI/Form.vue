@@ -1,104 +1,154 @@
 <template>
     <Form @submit="onSubmit" class="form">
-        <h3>Зв’яжіться з нами</h3>
-        <p>Ми відповімо Вам протягом 24 годин</p>
-        <div class="form__input-wrapper">
-            <Field
-                class="form__input"
-                name="name"
-                type="text"
-                placeholder="Ім'я"
-            />
-            <ErrorMessage class="form__error" name="name" />
+        <h3 class="form__title">Забронювати гру</h3>
+        <div class="form__info">
+            <p>Привіт, друже!</p>
+            <p>
+                Щоб забронювати гру заповни форму нижче, скоро ми зв’яжемося з
+                тобою для уточнення інформації
+            </p>
         </div>
-        <div class="form__input-wrapper">
-            <Field
-                :rules="validateEmail"
-                class="form__input"
-                type="email"
-                name="email"
-                placeholder="email@example.com"
-            />
-            <ErrorMessage class="form__error" name="email" />
-        </div>
-        <div class="form__input-wrapper">
-            <Field
-                :rules="validatePhone"
-                class="form__input"
-                type="tel"
-                name="phone"
-                placeholder="+380"
-            />
-            <ErrorMessage class="form__error" name="phone" />
-        </div>
-        <div class="form__input-wrapper">
-            <Field
-                class="form__textarea"
-                placeholder="Текст"
-                type="text"
-                name="message"
-            />
-            <ErrorMessage class="form__error" name="message" />
-            <div
-                :class="{
-                    success: resultMessage.status === 'success',
-                    faild: resultMessage.status === 'faild',
-                }"
-                class="form__result-message"
-                v-if="resultMessage.isShow"
-            >
-                {{ resultMessage.message }}
+        <div class="text-center">
+            <div class="form__inputs-wrapper">
+                <div class="form__input-item">
+                    <label class="form__label" for="user-name">Ім'я</label>
+                    <Field
+                        :rules="validateName"
+                        class="form__input"
+                        name="name"
+                        type="text"
+                        id="user-name"
+                        placeholder="Ім'я"
+                    />
+                    <ErrorMessage class="form__error" name="name" />
+                </div>
+
+                <div class="form__input-item">
+                    <label class="form__label" for="user-phone"
+                        >Номер телефону</label
+                    >
+                    <Field
+                        :rules="validatePhone"
+                        class="form__input"
+                        type="tel"
+                        name="phone"
+                        id="user-phone"
+                        placeholder="+380"
+                    />
+                    <ErrorMessage class="form__error" name="phone" />
+                </div>
+                <div class="form__input-item">
+                    <label class="form__label" for="user-game">Назва гри</label>
+                    <UISelect
+                        placeholder="Назва гри"
+                        :optionsList="allGameTitle"
+                        :selectedOption="selectedOption"
+                        v-model="selectedOption"
+                    />
+                </div>
+                <div class="form__input-item">
+                    <label class="form__label" for="user-game">Коментар</label>
+                    <textarea
+                        class="form__textarea"
+                        placeholder="Коментар"
+                        type="text"
+                        name="message"
+                        v-model="userMessage"
+                    />
+                </div>
+                <button type="submit" class="btn form__btn">Забронювати</button>
             </div>
-        </div>
-        <div class="form__btn-wrapper">
-            <button type="submit" class="btn form__btn">Відправити</button>
         </div>
     </Form>
 </template>
 
 <script setup>
 import { Form, Field, ErrorMessage } from "vee-validate";
+import { useGamesStore } from "~/stores/games";
+const emit = defineEmits([
+    "clearReservedGame",
+    "hideModal",
+    "update:modelValue",
+]);
+const props = defineProps({
+    reservedGame: {
+        type: String,
+        default: "",
+    },
+    modelValue: {
+        type: String,
+        default: "",
+    },
+    resultMessage: {
+        type: String,
+        default: "",
+    },
+});
+const store = useGamesStore();
+
+const allGameTitle = computed(() => {
+    return store.allGames.map((game) => game.game_title);
+});
+const clearReservedGame = () => {
+    emit("clearReservedGame");
+};
 const config = useRuntimeConfig();
 const TOKEN = config.public.telegramToken;
 const CHAT_ID = config.public.telegramChatId;
+const selectedOption = ref(props.reservedGame);
+const userMessage = ref("");
 
-const resultMessage = ref({ isShow: false, status: "", message: "" });
+// const resultMessage = ref({ isShow: false, status: "", message: "" });
 
 const onSubmit = async (value, { resetForm }) => {
     const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
-    let message = `<b>Ім'я: </b>${value.name}\n`;
-    message += `<b>Емейл: </b>${value.email}\n`;
+    let message = selectedOption.value
+        ? `<b>Гра: </b>${selectedOption.value}\n`
+        : "";
+    message += `<b>Ім'я: </b>${value.name}\n`;
     message += `<b>Телефон: </b>${value.phone}\n`;
-    message += `<b>Повідомлення: </b>${value.message}`;
+    if (userMessage.value) {
+        message += `<b>Повідомлення: </b>${userMessage.value}`;
+    }
 
     await useFetch(URI_API, {
         method: "POST",
         params: { chat_id: CHAT_ID, parse_mode: "html", text: message },
         onResponse({ request, response, options }) {
             if (response.status === 200) {
-                resultMessage.value = {
-                    isShow: true,
-                    status: "success",
-                    message: "Ваше заявка надіслана успішно",
-                };
+                emit(
+                    "update:modelValue",
+                    "Бронювання успішне, скоро ми зв’яжемося з тобою для уточнення інформації"
+                );
                 resetForm();
+                setTimeout(() => {
+                    emit("update:modelValue", "");
+                }, 2000);
+                emit("hideModal");
             }
         },
         onResponseError({ request, response, options }) {
             if (response.status > 399) {
-                resultMessage.value = {
-                    isShow: true,
-                    status: "faild",
-                    message: "Щось пішло не так, спробуйте ще раз",
-                };
+                emit(
+                    "update:modelValue",
+                    "Щось пішло не так, спробуйте ще раз"
+                );
             }
         },
     });
-    setTimeout(() => {
-        resultMessage.value = { isShow: false, status: "", message: "" };
-    }, 3000);
+    clearReservedGame();
+    // setTimeout(() => {
+    //     resultMessage.value = { isShow: false, status: "", message: "" };
+    // }, 2000);
 };
-
+const validateName = (value) => {
+    if (!value) {
+        return "Це поле обов'язкове";
+    } else if (value.trim().length < 3) {
+        return "Введіть ваше ім'я";
+    }
+    return true;
+};
 const validatePhone = (value) => {
     const regex = /(?=.*\+[0-9]{3}\s?[0-9]{2}\s?[0-9]{3}\s?[0-9]{4,5}$)/gm;
     if (!value) {
@@ -107,19 +157,6 @@ const validatePhone = (value) => {
     if (!regex.test(value) && value) {
         return "Введіть номер телефону в форматі +380";
     }
-    return true;
-};
-const validateEmail = (value) => {
-    // if the field is empty
-    if (!value) {
-        return "Це поле обов'язкове";
-    }
-    // if the field is not a valid email
-    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    if (!regex.test(value)) {
-        return "Введіть правельну поштову адресу";
-    }
-    // All is good
     return true;
 };
 </script>

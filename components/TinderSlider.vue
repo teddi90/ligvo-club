@@ -102,7 +102,7 @@ const props = defineProps({
         type: String,
         default: "",
     },
-    localUserVoted: {
+    sessionUserGames: {
         type: Array,
         default: () => [],
     },
@@ -124,7 +124,7 @@ const activeSlideGame = computed(() => {
 
 const playSliderLikeAnimation = () => {
     if (
-        !props.localUserVoted.includes(activeSlideGame.value.id) &&
+        !props.sessionUserGames.includes(activeSlideGame.value.id) &&
         props.isUserPhoneValid
     ) {
         sliderLike.value.play();
@@ -135,7 +135,7 @@ const playSliderLikeAnimation = () => {
 };
 const playSliderDislikeAnimation = () => {
     if (
-        !props.localUserVoted.includes(activeSlideGame.value.id) &&
+        !props.sessionUserGames.includes(activeSlideGame.value.id) &&
         props.isUserPhoneValid
     ) {
         sliderDislike.value.play();
@@ -151,7 +151,8 @@ const submitPhoneNumber = (isLike) => {
     if (isLike) {
         emit("add-like", { activeSlideGame: { ...activeSlideGame.value } });
     } else {
-        emit("add-dislike", { activeSlideGame: { ...activeSlideGame.value } });
+        // emit("add-dislike", { activeSlideGame: { ...activeSlideGame.value } });
+        emit("add-dislike", activeSlideGame.value);
     }
 };
 </script>

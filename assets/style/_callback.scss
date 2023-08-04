@@ -3,23 +3,28 @@
     padding: 56px 0 243px;
     text-align: center;
     position: relative;
+    @include media('md'){
+        padding: 80px 0 ;
+    }
     .title{
         margin-bottom: 47px;
+        @include media('md'){
+            margin-bottom: 60px;
+        }
     }
-    & .frame{
+    .frame{
         margin-bottom: 25px;
-        width: 300px;
-        display: inline-block;
+        
         &::after{
             background:$main-color;
         }
+        @include min-media('xs'){
+            width: 300px;
+            display: inline-block;
+        }
+        
     }
     &-card {
-        position: absolute;
-        z-index: 1;
-        left: 50%;
-        bottom: -66px;
-        transform: translateX(-50%);
         text-align: center;
         padding: 2px;
         display: inline-block;
@@ -30,12 +35,33 @@
             padding: 80px 60px 56px;
             background: $main-gradient;
             border-radius:6px;
+           
+            @include media('xs'){
+                padding: 40px 21px 48px;
+            }
+        }
+        @include min-media('md'){
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            bottom: -66px;
+            transform: translateX(-50%);
         }
 
         &__text {
             margin-bottom: 60px;
             color: #fff;
-            max-width: 680px;
+            font-size: 18px;
+            @include min-media('md'){
+                width: 680px;
+            }
+            @include media('md'){
+                width: 600px;
+            }
+            @include media('sm'){
+                margin-bottom: 48px;
+                width: unset;
+            }
         }
     }
     &-btn__wrapper{
@@ -43,6 +69,14 @@
         .btn{
             position: relative;
             z-index: 1;
+            @include media('md'){
+                padding: 17px 80px;
+            }
+            @include media('xs'){
+                padding: 17px 0;
+                display: block;
+            }
+           
         }
     }
     &-btn__flag{
@@ -50,5 +84,11 @@
         left: 50%;
         top: 100%;
         transform: translateX(-50%);
+        @include media('sm'){
+            width: 230px;
+        }
+        @include media('xs'){
+            width: 202px;
+        }
     }
 }
