@@ -53,7 +53,7 @@
                         placeholder="Коментар"
                         type="text"
                         name="message"
-                        v-model="userMessage"
+                        v-model.trim="userMessage"
                     />
                 </div>
                 <button type="submit" class="btn form__btn">Забронювати</button>
@@ -68,18 +68,10 @@ import { useGamesStore } from "~/stores/games";
 const emit = defineEmits([
     "clearReservedGame",
     "hideModal",
-    "update:modelValue",
+    "changeResultMessage",
 ]);
 const props = defineProps({
     reservedGame: {
-        type: String,
-        default: "",
-    },
-    modelValue: {
-        type: String,
-        default: "",
-    },
-    resultMessage: {
         type: String,
         default: "",
     },
@@ -92,13 +84,14 @@ const allGameTitle = computed(() => {
 const clearReservedGame = () => {
     emit("clearReservedGame");
 };
+const changeResultMessage = (message) => {
+    emit("changeResultMessage", message);
+};
 const config = useRuntimeConfig();
 const TOKEN = config.public.telegramToken;
 const CHAT_ID = config.public.telegramChatId;
 const selectedOption = ref(props.reservedGame);
 const userMessage = ref("");
-
-// const resultMessage = ref({ isShow: false, status: "", message: "" });
 
 const onSubmit = async (value, { resetForm }) => {
     const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
@@ -116,35 +109,25 @@ const onSubmit = async (value, { resetForm }) => {
         params: { chat_id: CHAT_ID, parse_mode: "html", text: message },
         onResponse({ request, response, options }) {
             if (response.status === 200) {
-                emit(
-                    "update:modelValue",
+                changeResultMessage(
                     "Бронювання успішне, скоро ми зв’яжемося з тобою для уточнення інформації"
                 );
                 resetForm();
-                setTimeout(() => {
-                    emit("update:modelValue", "");
-                }, 2000);
                 emit("hideModal");
             }
         },
         onResponseError({ request, response, options }) {
             if (response.status > 399) {
-                emit(
-                    "update:modelValue",
-                    "Щось пішло не так, спробуйте ще раз"
-                );
+                changeResultMessage("Щось пішло не так, спробуйте ще раз");
             }
         },
     });
     clearReservedGame();
-    // setTimeout(() => {
-    //     resultMessage.value = { isShow: false, status: "", message: "" };
-    // }, 2000);
 };
 const validateName = (value) => {
     if (!value) {
         return "Це поле обов'язкове";
-    } else if (value.trim().length < 3) {
+    } else if (value.trim().length < 2) {
         return "Введіть ваше ім'я";
     }
     return true;

@@ -163,9 +163,11 @@
         }
     }
     &-about{
-        padding: 135px 0 25px;
-        background-position-x:left, right,left ;
-        background-position-y:115px, bottom ,top ;
+        @include min-media('md'){
+            padding: 135px 0 25px;
+            background-position-x:left, right,left ;
+            background-position-y:115px, bottom ,top ;
+        }
     }
 
 }

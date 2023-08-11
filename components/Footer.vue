@@ -17,7 +17,9 @@
                             </li>
 
                             <li>
-                                <NuxtLink to="#">Рольові ігри</NuxtLink>
+                                <NuxtLink to="/rolegames"
+                                    >Рольові ігри</NuxtLink
+                                >
                             </li>
                             <li>
                                 <NuxtLink to="#">МТГ</NuxtLink>

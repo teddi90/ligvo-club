@@ -9,6 +9,9 @@
     align-items: center;
     position: relative;
     background: #140e12;
+    @include media('sm'){
+        background:rgb(33, 19, 27)
+    }
     &-bg{
         position: absolute;
         left: 0;
@@ -16,16 +19,16 @@
         height: 100%;
         object-fit: cover;
         @include min-media('lg'){
-            height: 94%;
+            height: 96%;
         }
         @include media('lg'){
             height: 75%;
         }
         @include media('md'){
-            height: 58%;
+            height: 61%;
         }
         @include media('sm'){
-            height: 45%;
+            height: 63%;
         }
         @include media('xs'){
             height: 70%;
@@ -35,23 +38,20 @@
         top: 0;
     }
     &-layer2{
-        bottom: -450px;
         z-index: 2;
-        @include min-media('lg'){
-            height: 79%;
-            bottom:-325px;
-        }
+        height: 82%;
+        bottom:-325px;
         @include media('lg'){
             height: 62%;
             bottom:-60px;
         }
         @include media('md'){
             height: 52%;
-            bottom: 145px;
+            bottom: 137px;
         }
         @include media('sm'){
-            height: 43%;
-            bottom: 308px;
+            height: 55%;
+            bottom: 89px;
         }
         @include media('xs'){
             height: 60%;
@@ -68,10 +68,10 @@
             padding-bottom: 436px;
         }
         @include media('sm'){
-            text-align: center;
-            padding-bottom: 200px;
+            padding-bottom: 410px;
         }
         @include media('xs'){
+            text-align: center;
             padding-bottom: 0px;
         }
     }

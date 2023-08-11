@@ -2,7 +2,10 @@
     padding: 170px 0 100px;
     background: #140e12;
     @include media('sm'){
-        padding:36px 0 102px ;
+        padding:36px 0 102px;
+        background: url(~/assets/img/sparks_mobile.png),linear-gradient(180deg, rgba(33, 19, 27,1) 0%, rgba(16,16,16,1) 100%);
+        background-repeat: no-repeat ;
+        background-position:  center bottom;
     }
     @include min-media('sm'){
         background-image: url(~/assets/img/sparks.png), url(~/assets/img/sparks2.png),linear-gradient(180deg, #140e12 0%, rgba(16,16,16,1) 100%);
@@ -21,7 +24,7 @@
     &__btn{
         padding:10px 70px;
         margin-top: auto;
-        background-color: #DB3A30;
+        // background-color: #DB3A30;
         box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
         transition: background .4s linear;
         &:hover{

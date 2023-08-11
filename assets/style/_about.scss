@@ -5,7 +5,21 @@
     background-repeat: no-repeat;
     background-position: center 100px;
     position: relative;
+    @include media('md'){
+        padding:180px 0 150px;
+
+    }
+    @include media('sm'){
+        padding:180px 0 100px;
+
+    }
+    @include media('xs'){
+        background-image:url(~/assets/img/sparks_mobile.png);
+        background-position: center 74px;
+        padding:160px 0 81px;
+    }
     &::after{
+       @include min-media('md'){
         content:'';
         width:100%;
         height:115px;
@@ -15,9 +29,19 @@
         bottom: -115px;
         left: 0;
         background:#101010;
+       }
     }
     .title{
         margin-bottom: 148px;
+        @include media('md'){
+            margin-bottom: 80px;
+        }
+        @include media('sm'){
+            margin-bottom: 60px;
+        }
+        @include media('xs'){
+            margin-bottom: 44px;
+        }
     }
     &__text{
         font-size: 18px;
@@ -27,6 +51,9 @@
         margin: 100px 0;
         display: flex;
         flex-wrap: wrap;
+        @include media('sm'){
+            margin: 40px 0;
+        }
     }
     &__image-wrapper{
         position: relative;
@@ -37,6 +64,10 @@
         &:not(:last-child){
             margin-right: 25px;
         }
+        @include media('sm'){
+            display: none;
+        }
+       
     }
     &__image{
         position: absolute;
@@ -45,6 +76,40 @@
         transform: translate(-50%, -50%);
         min-width: 100%;
         min-height: 100%;
+    }
+    &-slider__item{
+        border-radius:$border-radius;
+        overflow: hidden;
+        width: 100%;
+        @include media('sm'){
+            height:520px
+        }
+        @include media('xs'){
+            height:343px
+        }
+    }
+    &-slider{
+        @include min-media('sm'){
+            display: none;
+        }
+    }
+    &-slider__img{
+        min-width: 100%;
+    }
+    &-slider__naviagation{
+        padding: 24px 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    &-slider__arrow{
+        background:none;
+        border:none;
+        padding: 0;
+    }
+    &-slider__indicator{
+        font-size: 18px;
     }
 }
 

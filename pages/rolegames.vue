@@ -20,7 +20,7 @@
         <div class="board-games__bg"></div>
         <div class="container">
             <div class="board-games__top">
-                <h2 class="title">Настільнi ігри</h2>
+                <h2 class="title">Рольові ігри</h2>
                 <button @click="showFilter" class="board-games__filter">
                     <div class="filter-img__wrapper">
                         <svg
@@ -47,7 +47,7 @@
             </div>
             <div class="row">
                 <div
-                    v-for="game in boardGamesList"
+                    v-for="game in roleGamesList"
                     :key="game.id"
                     class="col-md-6"
                 >
@@ -146,10 +146,10 @@ const sliderGameCards = computed(() => {
     );
 });
 
-const boardGamesList = computed(() => {
+const roleGamesList = computed(() => {
     if (store.isFilterHasValues) {
         return store.filteredGames;
-    } else return store.getBoardGames;
+    } else return store.getRoleGames;
 });
 const setReservedGame = (game) => {
     reservedGame.value = game;
@@ -239,7 +239,7 @@ const handleAddLike = async ({ activeSlideGame }, { phone }, validate) => {
 
 store.fetchAllGames();
 onMounted(() => {
-    store.filter.category = "board_game";
+    store.filter.category = "role_game";
     sessionUserGames = sessionStorage.userVotedGamesId
         ? JSON.parse(sessionStorage.userVotedGamesId)
         : [];

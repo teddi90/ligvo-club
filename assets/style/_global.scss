@@ -34,6 +34,7 @@ body{
     border-radius:$border-radius;
     color:#fff;
     transition: all .4s ease-in-out;
+    font-weight: 500;
     &:hover{
         background: #ed2e22;
         color:#fff;
@@ -55,8 +56,10 @@ body{
 
 // Form
 .form{
-    background-color: $main-gradient;
     padding: 0 90px;
+    @include media('sm'){
+        padding: 0 16px;
+    }
     &__title{
         font-size: 32px;
         font-weight: 700;
@@ -64,6 +67,17 @@ body{
         text-align: center;
         margin-bottom: 32px;
         color:$main-color;
+        @include min-media('xs'){
+            text-align: center;
+       
+        }
+        @include media('md'){
+            margin-bottom: 30px;
+        }
+        @include media('sm'){
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
     }
     &__info{
         color:#fff;
@@ -72,6 +86,13 @@ body{
         p{
             width: 500px;
             margin-bottom: 0;
+            @include media('sm'){
+                width: 500px;
+                display: inline-block;
+            }
+            @include media('xs'){
+                width: 100%;
+            }
         }
     }
     &__label{
@@ -117,7 +138,7 @@ body{
         position: absolute;
         bottom: -16px;
         left: 9px;
-        font-size: 14px;
+        font-size: 12px;
         color:red;
     }
     &__result-message{
@@ -241,21 +262,35 @@ body{
 // Modal window
 .modal{
     top: 0;
-    bottom: 0;
     left: 0;
-    right: 0;
     background-color: rgba(0,0,0,0.5);
-    position: fixed;
-    z-index: 99999999999;
+    z-index: 99999999;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    @include min-media('sm'){
+    }
+    @include media('sm'){
+        z-index: 99999999999;
+        position: fixed;
+        height: unset;
+
+    }
     &__content{
         position: relative;
         border-radius:$border-radius;
         background: $main-gradient;
         padding: 48px 0px;
         box-sizing:border-box;
+        @include media('sm'){
+            width: calc(100% - 32px);
+        }
+        @include media('xs'){
+            width: 100%;
+        }
     }
     &__btn_close{
         color:$main-color;
@@ -267,18 +302,46 @@ body{
         &:hover{
             transform: scale(1.1);
         }
+        @include media('sm'){
+            top: 40px;
+            right: 16px;
+        }
     }
 }
 // Filter Modal
 .filter-modal{
+    @include media('xs'){
+        display: block;
+    }
     .modal__content {
         background: $main-gradient;
-        padding: 60px 135px 64px;
-        width: 1155px;
+        @include min-media('lg'){
+            max-width: 1148px;
+            padding: 60px 128px 40px;
+        }
+        @include media('lg'){
+            padding: 60px 60px 40px;
+            max-width: 971px;
+        }
+        @include media('md'){
+            max-width: 750px;
+        }
+        @include media('sm'){
+            padding: 60px 30px 40px;
+        }
+        @include media('xs'){
+            border-radius:0px;
+            padding: 45px  16px 32px;
+            
+        }
     }
     .modal__btn_close{
         right: 48px;
         top: 65px;
+        @include media('sm'){
+            top: 40px;
+            right: 16px;
+        }
     }
 }
 // Filter Form
@@ -286,20 +349,48 @@ body{
     &__title{
         text-transform: uppercase;
         color:$main-color;
-        text-align: center;
         font-size: 32px;
         font-weight: 700;
         margin-bottom: 78px;
+        @include min-media('xs'){
+            text-align: center;
+       
+        }
+        @include media('md'){
+            margin-bottom: 55px;
+        }
+        @include media('sm'){
+            font-size: 24px;
+            margin-bottom: 44px;
+        }
+    }
+    &__item{
+        @include media('md'){
+            margin-bottom: 30px;
+        }
+        @include media('sm'){
+            margin-bottom: 40px;
+        }
     }
     &__category{
         font-weight: 500;
         color:#fff;
         font-size: 18px;
         margin-bottom: 32px;
+        @include media('md'){
+            margin-bottom: 20px;
+        }
+        @include media('sm'){
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
     }
     &__group{
         position: relative;
         margin-bottom: 10px;
+        @include media('sm'){
+            margin-bottom: 16px;
+        }
     }
     &__checkbox{
         position: absolute;
@@ -309,7 +400,6 @@ body{
         }
     }
     &__label{
-        // position: relative;
         color:#fff;
         margin-left: 36px;
         cursor: pointer;
@@ -318,6 +408,9 @@ body{
         -khtml-user-select: none; 
         -moz-user-select: none; 
         user-select: none;
+        @include media('xs'){
+            display: block;
+        }
         &::before{
             content: "";
             display: block;
@@ -341,11 +434,32 @@ body{
         }
     }
     &__btn{
-        
-        margin-top: 84px;
-        padding:10px;
-        width: 490px;
+        margin-bottom: 25px;
+        padding:10px 72px;
         display: inline-block;
+        @include media('xs'){
+            width: 100%;
+            padding: 10px;
+        }
+        &-wrapper{
+            padding-top: 84px;
+            text-align: center;
+            @include media('md'){
+                padding-top: 30px;
+            }
+            @include media('sm'){
+                padding-top: 0px;
+            }
+        }
+        &-clear{
+            background:none;
+            border:none;
+            color:#fff;
+            transition: color .3s ease-in-out;
+            &:hover{
+                color:$main-color;
+            }
+        }
     }
 }
 
@@ -544,14 +658,18 @@ body{
     text-align: center;
     border-radius: 8px;
     color: #fff;
-    padding: 17px 40px;
-    font-size: 14px;
+    padding: 20px ;
+    font-size: 15px;
     position: fixed;
-    width: 60%;
-    top: 15px;
+    width: 100%;
+    top: 0px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%,-50px);
     z-index: 9999999999999999999;
+    transition: all .4s ease-in-out;
+    &.show{
+        transform: translate(-50%, 0px);
+    }
 }
 
 // Loader

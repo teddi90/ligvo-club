@@ -2,7 +2,6 @@ export const useGamesStore = defineStore('games', {
     state: () => ({
         allGames: [],
         isFetchingData: false,
-        // isModalVisible: false,
         categories: [
             { name: 'Настільні ігри', id: 'board_game' },
             { name: 'Рольові ігри', id: 'role_game' },
@@ -10,9 +9,8 @@ export const useGamesStore = defineStore('games', {
             { name: 'Варгейми', id: 'war_game' }],
         durations: [
             { name: 'до 1 год', id: '0-60' },
-            { name: 'до 2 год', id: '0-120' },
-            { name: '2-4 год', id: '120-240' },
-            { name: '4-6 год', id: '241-360' },
+            { name: '1-2 год', id: '60-120' },
+            { name: '2 год і більше', id: '120-240' },
         ],
         quantityOfPlayers: [
             { name: '1-4 гравців', id: '1-4' },
@@ -44,6 +42,22 @@ export const useGamesStore = defineStore('games', {
         getAllGames(state) {
             return state.allGames
         },
+        getBoardGames(state) {
+            return state.allGames
+                .filter((game) => (game.game_category[0] === "board_game"));
+        },
+        getRoleGames(state) {
+            return state.allGames
+                .filter((game) => { game.game_category[0] === "role_game" });
+        },
+        getMtgGames(state) {
+            return state.allGames
+                .filter((game) => { game.game_category[0] === "mtg" });
+        },
+        getWarGames(state) {
+            return state.allGames
+                .filter((game) => { game.game_category[0] === "war_game" });
+        },
         isFilterHasValues(state) {
             return !!(state.filter.category || state.filter.durations.length || state.filter.quantityOfPlayers.length || state.filter.difficulties.length)
         },
@@ -72,9 +86,10 @@ export const useGamesStore = defineStore('games', {
                 })
         },
         getCountOfUsedFilterOptions(state) {
-            return state.filter.category ?
-                1 + state.filter.durations.length + state.filter.quantityOfPlayers.length + state.filter.difficulties.length
-                : state.filter.durations.length + state.filter.quantityOfPlayers.length + state.filter.difficulties.length;
+            // return state.filter.category ?
+            //     1 + state.filter.durations.length + state.filter.quantityOfPlayers.length + state.filter.difficulties.length
+            //     : state.filter.durations.length + state.filter.quantityOfPlayers.length + state.filter.difficulties.length;
+            return state.filter.durations.length + state.filter.quantityOfPlayers.length + state.filter.difficulties.length;
 
         }
     },

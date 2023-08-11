@@ -49,9 +49,6 @@
                             />
                         </SwiperSlide>
                     </Swiper>
-                    <div v-if="votedMessage" class="voting-slider__message">
-                        {{ votedMessage }}
-                    </div>
                 </div>
             </div>
             <div class="col-md-3">
@@ -98,10 +95,6 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
-    votedMessage: {
-        type: String,
-        default: "",
-    },
     sessionUserGames: {
         type: Array,
         default: () => [],
@@ -112,7 +105,7 @@ const props = defineProps({
     },
 });
 
-const swiper = ref();
+const swiper = ref(null);
 const store = useGamesStore();
 const sliderDislike = ref(null);
 const sliderLike = ref(null);

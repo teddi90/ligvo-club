@@ -1,4 +1,5 @@
 <template>
+    <UIDropInfo :resultMessage="resultMessage" />
     <section class="hero">
         <div class="container">
             <img
@@ -26,7 +27,10 @@
             </div>
         </div>
         <UIModal :isModalVisible="isModalVisible" @hideModal="hideModal">
-            <UIForm @hideModal="hideModal" />
+            <UIForm
+                @hideModal="hideModal"
+                @changeResultMessage="changeResultMessage"
+            />
         </UIModal>
     </section>
     <section class="catalog">
@@ -63,7 +67,7 @@
                             ігри, які є ігри, вікова категорія, жанри, типи і
                             тд. Текст про настільні ігри
                         </p>
-                        <NuxtLink class="btn catalog__btn" to="#"
+                        <NuxtLink class="btn catalog__btn" to="/rolegames"
                             >Більше</NuxtLink
                         >
                     </div>
@@ -114,10 +118,13 @@
 
 <script setup>
 import useModal from "~/composables/useModal";
+import useDropInfo from "~/composables/useDropInfo";
+
+const { showModal, isModalVisible, hideModal } = useModal();
+const { resultMessage, changeResultMessage } = useDropInfo();
 const heroLayer1 = ref(null);
 const heroLayer2 = ref(null);
 const heroContent = ref(null);
-const { showModal, isModalVisible, hideModal } = useModal();
 let windowWidth = null;
 
 const heroParalax = () => {
@@ -133,17 +140,17 @@ const heroParalax = () => {
         })`;
     };
 
-    if (scrollValue > 270) {
+    if (scrollValue > 270 && windowWidth > 576) {
         heroContent.value.style.zIndex = 1;
     } else {
         heroContent.value.style.zIndex = 2;
     }
 
-    if (576 < windowWidth && windowWidth < 768) {
-        setParalaxStyle(308);
-    } else if (767 < windowWidth && windowWidth < 992) {
-        setParalaxStyle(145);
-    } else if (991 < windowWidth && windowWidth < 1200) {
+    if (575 < windowWidth && windowWidth < 769) {
+        setParalaxStyle(124);
+    } else if (768 < windowWidth && windowWidth < 993) {
+        setParalaxStyle(137);
+    } else if (992 < windowWidth && windowWidth < 1200) {
         setParalaxStyle(-64);
     } else if (windowWidth > 1199) {
         setParalaxStyle(-325, 2.3);

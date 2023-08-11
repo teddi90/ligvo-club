@@ -22,8 +22,10 @@
                                     >
                                 </li>
                                 <li class="sub-menu__item">
-                                    <a class="sub-menu__link" href="#"
-                                        >Рольові ігри</a
+                                    <NuxtLink
+                                        class="sub-menu__link"
+                                        to="/rolegames"
+                                        >Рольові ігри</NuxtLink
                                     >
                                 </li>
                                 <li class="sub-menu__item">
@@ -45,7 +47,10 @@
                             <a class="menu__link" href="#footer">Контакти</a>
                         </li>
                     </ul>
-                    <div @click="toggleMenu" class="burger-container">
+                    <div
+                        @click="toggleMenu(), closeSubMobileMenu()"
+                        class="burger-container"
+                    >
                         <div id="burger">
                             <div class="bar bar-top">
                                 <img src="~/assets/img/mobile_left_arrow.svg" />
@@ -66,11 +71,57 @@
                         <ul class="menu-mobile">
                             <li class="menu-mobile__item">
                                 <button
-                                    @click="closeMenu"
+                                    @click="toggleSubMobileMenu"
                                     class="menu-mobile__link"
                                 >
                                     Каталог ігор
                                 </button>
+                                <ul class="sub-menu-mobile" ref="subMenuMobile">
+                                    <li class="sub-menu-mobile__item">
+                                        <NuxtLink
+                                            @click="
+                                                closeMenu(),
+                                                    closeSubMobileMenu()
+                                            "
+                                            to="/boardgames"
+                                            class="sub-menu-mobile__link"
+                                            >Настільні ігри</NuxtLink
+                                        >
+                                    </li>
+                                    <li class="sub-menu-mobile__item">
+                                        <NuxtLink
+                                            @click="
+                                                closeMenu(),
+                                                    closeSubMobileMenu()
+                                            "
+                                            to="/rolegames"
+                                            class="sub-menu-mobile__link"
+                                            >Рольові ігри</NuxtLink
+                                        >
+                                    </li>
+                                    <li class="sub-menu-mobile__item">
+                                        <NuxtLink
+                                            @click="
+                                                closeMenu(),
+                                                    closeSubMobileMenu()
+                                            "
+                                            to="#"
+                                            class="sub-menu-mobile__link"
+                                            >МТГ</NuxtLink
+                                        >
+                                    </li>
+                                    <li class="sub-menu-mobile__item">
+                                        <NuxtLink
+                                            @click="
+                                                closeMenu(),
+                                                    closeSubMobileMenu()
+                                            "
+                                            to="#"
+                                            class="sub-menu-mobile__link"
+                                            >Варгейми</NuxtLink
+                                        >
+                                    </li>
+                                </ul>
                             </li>
                             <li class="menu-mobile__item">
                                 <NuxtLink
@@ -84,7 +135,7 @@
                             <li class="menu-mobile__item">
                                 <NuxtLink
                                     @click="closeMenu"
-                                    to="#"
+                                    to="/contacts"
                                     class="menu-mobile__link"
                                     >Контакти</NuxtLink
                                 >
@@ -110,10 +161,18 @@
 </template>
 <script setup>
 const header = ref(null);
+const subMenuMobile = ref(null);
+
 const toggleMenu = () => {
     header.value.classList.toggle("menu-mobile-opened");
 };
 const closeMenu = () => {
     header.value.classList.remove("menu-mobile-opened");
+};
+const toggleSubMobileMenu = () => {
+    subMenuMobile.value.classList.toggle("sub-menu-mobile__open");
+};
+const closeSubMobileMenu = () => {
+    subMenuMobile.value.classList.remove("sub-menu-mobile__open");
 };
 </script>
