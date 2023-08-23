@@ -1,11 +1,10 @@
 <template>
-    <UILoader v-if="!store.allGames.length && store.isFetchingData" />
+    <UILoader v-if="!allGames.length && isFetchingData" />
     <UIModal :isModalVisible="isModalVisible" @hideModal="hideModal">
         <UIForm
             :reservedGame="reservedGame"
             @clearReservedGame="clearReservedGame"
             @hideModal="hideModal"
-            @changeResultMessage="changeResultMessage"
         />
     </UIModal>
     <UIModal
@@ -13,15 +12,18 @@
         :isModalVisible="isFilterVisible"
         @hideModal="hideFilter"
     >
-        <UIFilterForm @submit="hideFilter" />
+        <UIFilterForm
+            @submit="hideFilter"
+            @resetCurrentPage="resetCurrentPage"
+        />
     </UIModal>
     <UIDropInfo :resultMessage="resultMessage" />
-    <section class="board-games">
-        <div class="board-games__bg"></div>
+    <section class="games">
+        <div class="games__bg"></div>
         <div class="container">
-            <div class="board-games__top">
+            <div class="games__top">
                 <h2 class="title">Рольові ігри</h2>
-                <button @click="showFilter" class="board-games__filter">
+                <button @click="showFilter" class="games__filter">
                     <div class="filter-img__wrapper">
                         <svg
                             class="filter-img"
@@ -46,17 +48,104 @@
                 </button>
             </div>
             <div class="row">
-                <div
-                    v-for="game in roleGamesList"
-                    :key="game.id"
-                    class="col-md-6"
-                >
+                <div v-for="game in paginate" :key="game.id" class="col-lg-6">
                     <CardGame
                         :game="game"
                         @showModal="showModal"
                         @setReservedGame="setReservedGame"
                     />
                 </div>
+            </div>
+            <div class="pagination" v-if="getAmountOfPage > 1">
+                <button
+                    class="pagination__btn pagination__btn_nav"
+                    @click="paginationPrevPage"
+                >
+                    <svg
+                        width="33"
+                        height="24"
+                        viewBox="0 0 33 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M32.75 20.4053L12.344 16.9041V23.6364L0.75 12H32.75C32.75 12 32.75 19.2727 32.75 20.4053Z"
+                            fill="url(#paint0_linear_918_27453)"
+                        />
+                        <path
+                            d="M32.75 3.59468L12.344 7.09594V0.363636L0.75 12H32.75C32.75 12 32.75 4.72727 32.75 3.59468Z"
+                            fill="#EABD48"
+                        />
+                        <defs>
+                            <linearGradient
+                                id="paint0_linear_918_27453"
+                                x1="26.1592"
+                                y1="28.9141"
+                                x2="-7.79741"
+                                y2="12.7883"
+                                gradientUnits="userSpaceOnUse"
+                            >
+                                <stop stop-color="#F1D04A" />
+                                <stop offset="0.09" stop-color="#ECC349" />
+                                <stop offset="0.23" stop-color="#E1A746" />
+                                <stop offset="0.31" stop-color="#DD9E46" />
+                                <stop offset="0.43" stop-color="#D38746" />
+                                <stop offset="0.55" stop-color="#C76B46" />
+                                <stop offset="0.79" stop-color="#4F3131" />
+                                <stop offset="1" stop-color="#482C2E" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </button>
+                <button
+                    class="pagination__btn"
+                    :class="{ active: btn === currentPage }"
+                    v-for="btn in getAmountOfPage"
+                    :key="btn"
+                    @click="setCurrentPage(btn)"
+                >
+                    {{ btn }}
+                </button>
+                <button
+                    class="pagination__btn pagination__btn_nav"
+                    @click="paginationNextPage"
+                >
+                    <svg
+                        width="33"
+                        height="24"
+                        viewBox="0 0 33 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M0.75 20.4053L21.156 16.9041V23.6364L32.75 12H0.75C0.75 12 0.75 19.2727 0.75 20.4053Z"
+                            fill="url(#paint0_linear_918_27465)"
+                        />
+                        <path
+                            d="M0.75 3.59468L21.156 7.09594V0.363636L32.75 12H0.75C0.75 12 0.75 4.72727 0.75 3.59468Z"
+                            fill="#EABD48"
+                        />
+                        <defs>
+                            <linearGradient
+                                id="paint0_linear_918_27465"
+                                x1="7.34085"
+                                y1="28.9141"
+                                x2="41.2974"
+                                y2="12.7883"
+                                gradientUnits="userSpaceOnUse"
+                            >
+                                <stop stop-color="#F1D04A" />
+                                <stop offset="0.09" stop-color="#ECC349" />
+                                <stop offset="0.23" stop-color="#E1A746" />
+                                <stop offset="0.31" stop-color="#DD9E46" />
+                                <stop offset="0.43" stop-color="#D38746" />
+                                <stop offset="0.55" stop-color="#C76B46" />
+                                <stop offset="0.79" stop-color="#4F3131" />
+                                <stop offset="1" stop-color="#482C2E" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </button>
             </div>
         </div>
     </section>
@@ -103,7 +192,7 @@
                         <TinderSlider
                             @add-like="handleAddLike($event, values, validate)"
                             @add-dislike="addDislike"
-                            :sliderGameCards="store.getBoardGames"
+                            :sliderGameCards="store.getRoleGames"
                             :sessionUserGames="sessionUserGames"
                             :isUserPhoneValid="isUserPhoneValid"
                         />
@@ -129,24 +218,58 @@ const { resultMessage, changeResultMessage } = useDropInfo();
 const TOKEN = config.public.telegramToken;
 const CHAT_ID = config.public.telegramChatId;
 
-const { allGames } = storeToRefs(store);
+const { allGames, isFetchingData } = storeToRefs(store);
 const isFilterVisible = ref(false);
 const currentVotedGames = ref([]);
 const isUserPhoneValid = ref(true);
 const reservedGame = ref("");
 let sessionUserGames = ref([]);
+const currentPage = ref(1);
+const pageSize = ref(10);
 
-const sliderGameCards = computed(() => {
-    return allGames.value.filter(
-        (game) => !currentVotedGames.value.includes(game.id)
-    );
-});
-
-const roleGamesList = computed(() => {
+const paginate = computed(() => {
     if (store.isFilterHasValues) {
-        return store.filteredGames;
-    } else return store.getRoleGames;
+        return store.filteredGames.slice(
+            (currentPage.value - 1) * pageSize.value,
+            currentPage.value * pageSize.value
+        );
+    } else
+        return store.getRoleGames.slice(
+            (currentPage.value - 1) * pageSize.value,
+            currentPage.value * pageSize.value
+        );
 });
+const getAmountOfPage = computed(() => {
+    if (store.isFilterHasValues) {
+        return Math.ceil(store.filteredGames.length / pageSize.value);
+    } else return Math.ceil(store.getRoleGames.length / pageSize.value);
+});
+const paginationPrevPage = () => {
+    if (currentPage.value !== 1) {
+        currentPage.value--;
+        scrollToTop();
+    }
+};
+const paginationNextPage = () => {
+    if (currentPage.value !== getAmountOfPage.value) {
+        currentPage.value++;
+        scrollToTop();
+    }
+};
+const setCurrentPage = (page) => {
+    currentPage.value = page;
+    scrollToTop();
+};
+const resetCurrentPage = () => {
+    currentPage.value = 1;
+};
+const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+    });
+};
+
 const setReservedGame = (game) => {
     reservedGame.value = game;
 };
@@ -172,7 +295,6 @@ const isPhoneNumberValid = (value) => {
     isUserPhoneValid.value = true;
     return true;
 };
-
 const addLike = async ({ activeSlideGame, phone }) => {
     if (sessionUserGames.includes(activeSlideGame.id)) {
         changeResultMessage("Ви вже подали заявку на дану гру");
@@ -208,11 +330,6 @@ const addDislike = (activeSlideGame) => {
     if (sessionUserGames.includes(activeSlideGame.id)) {
         changeResultMessage("Ви вже подали заявку на дану гру");
     } else {
-        // sessionUserGames.push(activeSlideGame.id);
-        // sessionStorage.setItem(
-        //     "userVotedGamesId",
-        //     JSON.stringify(sessionUserGames)
-        // );
         currentVotedGames.value.push(activeSlideGame.id);
         changeResultMessage("Дякуєм за ваш голос");
     }
@@ -225,17 +342,9 @@ const handleAddLike = async ({ activeSlideGame }, { phone }, validate) => {
         addLike({ activeSlideGame, phone });
     }
 };
-// const handleAddDislike = async ({ activeSlideGame }, { phone }, validate) => {
-//     const { valid } = await validate();
-
-//     if (valid) {
-//         addDislike({ activeSlideGame, phone });
-//     }
-// };
 
 store.fetchAllGames();
 onMounted(() => {
-    store.filter.category = "role_game";
     sessionUserGames = sessionStorage.userVotedGamesId
         ? JSON.parse(sessionStorage.userVotedGamesId)
         : [];

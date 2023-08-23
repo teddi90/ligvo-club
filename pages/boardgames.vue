@@ -1,5 +1,5 @@
 <template>
-    <UILoader v-if="!store.allGames.length && store.isFetchingData" />
+    <UILoader v-if="!allGames.length && isFetchingData" />
     <UIModal :isModalVisible="isModalVisible" @hideModal="hideModal">
         <UIForm
             :reservedGame="reservedGame"
@@ -18,12 +18,12 @@
         />
     </UIModal>
     <UIDropInfo :resultMessage="resultMessage" />
-    <section class="board-games">
-        <div class="board-games__bg"></div>
+    <section class="games">
+        <div class="games__bg"></div>
         <div class="container">
-            <div class="board-games__top">
+            <div class="games__top">
                 <h2 class="title">Настільнi ігри</h2>
-                <button @click="showFilter" class="board-games__filter">
+                <button @click="showFilter" class="games__filter">
                     <div class="filter-img__wrapper">
                         <svg
                             class="filter-img"
@@ -218,7 +218,7 @@ const { resultMessage, changeResultMessage } = useDropInfo();
 const TOKEN = config.public.telegramToken;
 const CHAT_ID = config.public.telegramChatId;
 
-const { allGames } = storeToRefs(store);
+const { allGames, isFetchingData } = storeToRefs(store);
 const isFilterVisible = ref(false);
 const currentVotedGames = ref([]);
 const isUserPhoneValid = ref(true);
@@ -226,6 +226,8 @@ const reservedGame = ref("");
 let sessionUserGames = ref([]);
 const currentPage = ref(1);
 const pageSize = ref(10);
+
+store.filter.category = "board_game";
 
 // const sliderGameCards = computed(() => {
 //     return allGames.value.filter(
@@ -369,7 +371,6 @@ const handleAddLike = async ({ activeSlideGame }, { phone }, validate) => {
 
 store.fetchAllGames();
 onMounted(() => {
-    store.filter.category = "board_game";
     sessionUserGames = sessionStorage.userVotedGamesId
         ? JSON.parse(sessionStorage.userVotedGamesId)
         : [];
