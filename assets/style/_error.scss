@@ -1,0 +1,25 @@
+.error-page{
+    padding:160px 0 250px;
+    background:url(~/assets/img/sparks.png), #101010 linear-gradient(180deg, rgba(29,18,29,1) 0%, rgba(0,0,0,0) 50%);;
+    background-repeat: no-repeat;
+    background-position: center 80px;
+    position: relative;
+    @include media('md'){
+        padding:180px 0 150px;
+
+    }
+    @include media('xs'){
+        background-image:url(~/assets/img/sparks_mobile.png);
+        background-position: center 74px;
+        padding:160px 0 81px;
+    }
+    &__message{
+        text-align: center;
+        color:$main-color;
+        font-size: 35px;
+        @include media('sm'){
+            font-size: 25px;
+        }
+    }
+}
+

@@ -110,10 +110,6 @@
         </div>
     </section>
     <Callback />
-    <section class="map-wrapper">
-        <Map />
-    </section>
-    <Footer />
 </template>
 
 <script setup>

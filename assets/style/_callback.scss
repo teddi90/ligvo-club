@@ -1,10 +1,18 @@
 .callback{
     background-color: #101010;
-    padding: 56px 0 243px;
+    padding: 166px 0 243px;
     text-align: center;
     position: relative;
+    background-image: url(~/assets/img/sparks2.png);
+    background-repeat: no-repeat;
+    background-position: center top ;
     @include media('md'){
-        padding: 40px 0 155px ;
+        padding: 90px 0 155px ;
+        background-image: url(~/assets/img/sparks_mobile.png);
+    }
+    @include media('sm'){
+        padding: 90px 0 155px ;
+
     }
     .title{
         margin-bottom: 47px;

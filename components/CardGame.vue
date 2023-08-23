@@ -1,17 +1,21 @@
 <template>
     <div class="game game__card">
         <figure>
-            <div class="game__img_wrapper">
+            <NuxtLink :to="`/game/${game.id}`" class="game__img_wrapper">
                 <img
                     :src="game.image.guid"
                     :alt="game.game_title"
                     class="game__img"
                 />
-            </div>
+            </NuxtLink>
         </figure>
         <figcaption>
             <div class="game__info">
-                <h3 class="game__title">{{ game.game_title }}</h3>
+                <h3 class="game__title">
+                    <NuxtLink :to="`/game/${game.id}`">{{
+                        game.game_title
+                    }}</NuxtLink>
+                </h3>
                 <div class="game__info_item-wrapper">
                     <div class="game__info_item game__info_indicator-wrapper">
                         <div class="game__info_indicators">
@@ -67,9 +71,7 @@
                     </div>
                 </div>
             </div>
-            <p class="game__text">
-                {{ game.description }}
-            </p>
+            <div class="game__text" v-html="game.description" />
             <button
                 @click="
                     showModal();

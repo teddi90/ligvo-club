@@ -1,0 +1,191 @@
+.game-page {
+    background: url(~/assets/img/sparks.png), #101010 linear-gradient(180deg, rgb(29, 18, 29) 0%, rgba(0, 0, 0, 0) 50%);
+    background-repeat:no-repeat;
+    background-position: center 100px;
+    padding: 110px 0 50px;
+    @include media('md'){
+        padding:110px 0 80px;
+    }
+    @include media('sm'){
+        padding:70px 0 60px;
+        background-position: center 54px;
+
+    }
+    @include media('xs'){
+        background-image:url(~/assets/img/sparks_mobile.png);
+        background-position: center 74px;
+        padding:60px 0 40px;
+    }
+    .title{
+        margin-bottom: 120px;
+    }
+    &__breadcrumbs{
+        margin-bottom: 90px;
+        font-size: 14px;
+        color:rgba($main-color,.7);
+        @include media('sm'){
+            margin-bottom: 60px;
+        }
+        a{
+            text-decoration: none;
+            color:$main-color;
+            margin-right: 5px;
+            transition: color .4s ease-in;
+            &:hover{
+                color:$second-color;
+            }
+        }
+    }
+    &__wrapper {
+        background-color: $main-color;
+        padding: 40px;
+        border-radius: $border-radius;
+        position: relative;
+        margin-bottom: 92px;
+        @include media('md'){
+            padding: 30px;
+        }
+        @include media('sm'){
+            padding: 26px;
+        }
+        @include media('xs'){
+            padding: 24px;
+        }
+        &::before{
+            content:'';
+            display: block;
+            position: absolute;
+            top: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: url(~/assets/img/arrows_card_up.png);
+            width: 102px;
+            height: 26px;
+            @include media('sm'){
+            background: url(~/assets/img/arrows.png);
+            top: -32px;
+            height: 33px;
+            width: 78px;
+            }
+        }
+        &::after{
+            content:'';
+            display: block;
+            position: absolute;
+            bottom: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: url(~/assets/img/arrows_card_down.png);
+            width: 102px;
+            height: 26px;
+            @include media('sm'){
+                background: url(~/assets/img/arrows_down.png);
+                bottom: -32px;
+                height: 33px;
+                width: 78px;
+            }
+        }
+    }
+    &__img {
+        &-wrapper {
+            filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.42));
+            border-radius: $border-radius;
+            margin-bottom: 16px;
+            background:#fff;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            height: 450px;
+            @include media('xs'){
+                height: 300px;
+            }
+        }
+    }
+    &__title {
+        font-size: 24px;
+        font-weight: 400;
+        margin-bottom: 20px;
+        text-align: left;
+        @include media('md'){
+            margin-bottom: 14px;
+        }
+    }
+    &__info{        
+        margin-bottom: 20px;
+        @include media('md'){
+            flex-direction: column;
+            justify-content: flex-start;
+            margin-bottom: 16px;
+        }
+        &_indicators{
+            font-size: 0;
+        }
+        &_indicator{
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #D9D9D9;
+            opacity: 0.2;
+            border-radius:1px;
+            &:not(:last-child){
+                margin-right: 2px;
+            }
+            &.active{
+                opacity: 1;
+            }
+        }
+        &_item{
+            color: #fff;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            height: 32px;
+            width: 76px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 5px rgba(75, 0, 0, 0.31);
+            border-radius: 8px;
+            &-wrapper{
+                display: flex;
+            }
+            .game-page__info_indicator:nth-child(2){
+                height: 14px;
+            }
+            .game-page__info_indicator:nth-child(3){
+                height: 17px;
+            }
+            &:not(:last-child){
+                margin-right: 8px;
+            }
+            svg{
+                margin-right: 3px;
+            }
+            span{
+                display: inline-block;
+                line-height: 11px;
+                transform: translateY(-1px);
+            }
+        }
+        
+    }
+    &__info_indicator-wrapper{
+        width: 54px;
+    }
+    &__text {
+        margin-bottom: 24px;
+        overflow: hidden;
+        text-align: left;
+        span{
+            font-weight: 500 !important;
+            display: block;
+            margin-bottom: 10px;
+        }
+    }
+    &__btn {
+        padding: 7px;
+        display: block;
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+        transition: background .3s ease-in-out;
+        width: 100%;
+    }
+}

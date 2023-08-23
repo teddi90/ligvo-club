@@ -6,6 +6,12 @@
     z-index: 99999;
     background-color: rgba(0,0,0,.2);
     padding: 16px 0;
+    &_bg{
+        background-color: rgba(0,0,0,.8);
+        .sub-menu{
+            background-color: rgba(0,0,0,.8);
+        }
+    }
     .container, .nav{
             height: 100%;
         }
@@ -70,9 +76,10 @@
         align-items:center;
     }
     &__logo{
-        width: 205px;
+        width: 170px;
+        transition: width .5s ease-in;
         @include media('lg'){
-            max-width: 190px;
+            max-width: 170px;
         }
         @include media('md'){
             max-width: 160px;
@@ -300,15 +307,18 @@
     padding: 0;
     margin: 0;
     height: 0;
-    transition: height .4s ease-in-out;
+    transition: height .4s ease-in-out, transform .4s ease-in-out ;
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     box-sizing: border-box;
     visibility: hidden;
+    transform: translateY(152px);
     &__open{
         margin-top: 16px;
         visibility: visible;
         @include media('sm'){
             height: 171px;
+            transform: translateY(0px);
+
         }
         @include media('xs'){
             height: 137px;

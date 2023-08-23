@@ -113,10 +113,6 @@
         </div>
     </section>
     <Callback class="tinder-callback" />
-    <section class="map-wrapper">
-        <Map />
-    </section>
-    <Footer />
 </template>
 
 <script setup>

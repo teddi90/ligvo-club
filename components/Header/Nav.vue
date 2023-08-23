@@ -1,5 +1,9 @@
 <template>
-    <header class="header" ref="header">
+    <header
+        class="header"
+        :class="{ header_bg: scrollPosition > 50 }"
+        ref="header"
+    >
         <div class="container">
             <nav class="nav">
                 <div class="nav__wrapper">
@@ -133,11 +137,11 @@
                             </li>
 
                             <li class="menu-mobile__item">
-                                <NuxtLink
+                                <a
                                     @click="closeMenu"
-                                    to="/contacts"
+                                    href="#footer"
                                     class="menu-mobile__link"
-                                    >Контакти</NuxtLink
+                                    >Контакти</a
                                 >
                             </li>
                         </ul>
@@ -162,6 +166,7 @@
 <script setup>
 const header = ref(null);
 const subMenuMobile = ref(null);
+const scrollPosition = ref(null);
 
 const toggleMenu = () => {
     header.value.classList.toggle("menu-mobile-opened");
@@ -175,4 +180,10 @@ const toggleSubMobileMenu = () => {
 const closeSubMobileMenu = () => {
     subMenuMobile.value.classList.remove("sub-menu-mobile__open");
 };
+const updateScroll = () => {
+    scrollPosition.value = window.scrollY;
+};
+onMounted(() => {
+    window.addEventListener("scroll", updateScroll);
+});
 </script>

@@ -10,14 +10,14 @@ export const useGamesStore = defineStore('games', {
         durations: [
             { name: 'до 1 год', id: '0-60' },
             { name: '1-2 год', id: '60-120' },
-            { name: '2 год і більше', id: '120-240' },
+            { name: '2 год і більше', id: '120-480' },
         ],
         quantityOfPlayers: [
             { name: '1-4 гравців', id: '1-4' },
             { name: '4-6 гравців', id: '4-6' },
             { name: '6-10 гравців', id: '6-10' },
             { name: '10-15 гравців', id: '10-15' },
-            { name: '15 і більше', id: '15-100' },
+            { name: '16 і більше', id: '16-100' },
         ],
         difficulties: [
             { name: 'Легка гра', id: 'easy' },
@@ -75,13 +75,18 @@ export const useGamesStore = defineStore('games', {
                 .filter((game) => {
                     return state.filter.durations.length ? state.filter.durations.filter((duration) => {
                         const durationsArr = duration.split('-');
-                        return +game.duration >= +durationsArr[0] && +game.duration <= +durationsArr[1]
+                        return +game.duration >= +durationsArr[0] + 1 && +game.duration <= +durationsArr[1] + 1
                     }).length : true;
                 })
                 .filter((game) => {
                     return state.filter.quantityOfPlayers.length ? state.filter.quantityOfPlayers.filter((quantity) => {
                         const quantityArr = quantity.split('-');
-                        return +game.min_players >= +quantityArr[0] && +game.max_players <= +quantityArr[1]
+                        // const param1 = +game.min_players >= +quantityArr[0] && +game.min_players <= +quantityArr[1];
+                        // const param2 = +game.max_players >= +quantityArr[0] && +game.max_players <= +quantityArr[1];
+                        // return param1 || param2
+                        const quanArr = Array.from({ length: +quantityArr[1] - +quantityArr[0] + 1 }, (_, index) => +quantityArr[0] + index);
+                        const gameArr = Array.from({ length: +game.max_players - +game.min_players + 1 }, (_, index) => +game.min_players + index);
+                        return quanArr.some(game => gameArr.includes(game));
                     }).length : true;
                 })
         },

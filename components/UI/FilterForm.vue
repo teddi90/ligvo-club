@@ -53,13 +53,20 @@
                 </div>
                 <div class="filter__btn-wrapper">
                     <button
-                        @click="emit('submit'), redirectToPage()"
+                        @click="
+                            emit('submit'),
+                                redirectToPage(),
+                                emit('resetCurrentPage')
+                        "
                         class="btn filter__btn"
                     >
                         Показати результати ({{ store.filteredGames.length }})
                     </button>
                     <br />
-                    <button @click="clearFilter" class="filter__btn-clear">
+                    <button
+                        @click="clearFilter(), emit('resetCurrentPage')"
+                        class="filter__btn-clear"
+                    >
                         Очистити
                     </button>
                 </div>
@@ -70,14 +77,13 @@
 <script setup>
 import { useGamesStore } from "~/stores/games";
 const store = useGamesStore();
-const emit = defineEmits(["submit"]);
+const emit = defineEmits(["submit", "resetCurrentPage"]);
 const route = useRoute();
 const router = useRouter();
 
 const redirectToPage = () => {
     let page = store.filter.category.split("_").join("");
     page = page !== "mtg" ? page + "s" : "mtg";
-    console.log(page);
     if (route.name !== page) {
         router.push({ path: `/${page}` });
     }

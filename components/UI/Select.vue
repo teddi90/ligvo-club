@@ -56,12 +56,6 @@ const props = defineProps({
         default: () => [],
     },
 });
-// const vModel = computed({
-//     get: () => props.modelValue,
-//     set: (value) => {
-//         emit("update:modelValue", value);
-//     },
-// });
 
 const optionValue = ref(
     props.selectedOption ? props.selectedOption : props.placeholder

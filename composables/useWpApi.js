@@ -2,12 +2,10 @@
 export default () => {
     const config = useRuntimeConfig();
     const wpUri = config.public.wpUri;
-    const wpUserName = config.public.wpApiUserName;
-    const wpUserPassword = config.public.wpApiUserPassword;
 
     // get
     const get = async (endpoint) => {
-        return useFetch(`${wpUri}/wp-json/wp/v2/${endpoint}`);
+        return useFetch(`${wpUri}/wp-json/wp/v2/${endpoint}?per_page=100`);
     }
 
     // Get All games
@@ -18,8 +16,6 @@ export default () => {
 
     // Get a Single Game
     const getGame = async (slug) => get(`game?slug=${slug}&_embed`);
-
-
 
     return { get, getGame, getGames }
 

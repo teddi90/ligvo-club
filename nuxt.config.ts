@@ -11,28 +11,26 @@ export default defineNuxtConfig({
         'bootstrap/dist/css/bootstrap.min.css',
         '~/assets/style/main.scss'
     ],
-    plugins: [
-        '~/plugins/vueGoogleMaps.js',
-    ],
     build: {
-        transpile: ["@fawmi/vue-google-maps", "@vee-validate/nuxt"],
+        transpile: ["@vee-validate/nuxt"],
     },
     runtimeConfig: {
         public: {
             wpUri: process.env.WP_URI,
-            googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
             telegramToken: process.env.TELEGRAM_TOKEN,
             telegramChatId: process.env.TELEGRAM_CHAT_ID,
-            wpApiUserName: process.env.WP_API_USER_NAME,
-            wpApiUserPassword: process.env.WP_API_USER_PASSWORD,
         },
     },
     modules: [
         '@vee-validate/nuxt',
         '@pinia/nuxt',
         'nuxt-swiper',
+        'nuxt-mapbox',
     ],
     pinia: {
         autoImports: ['defineStore',]
     },
+    mapbox: {
+        accessToken: 'pk.eyJ1IjoidGVkZGk5MCIsImEiOiJjbGxheDM0eG4wMWxrM2dxdTlhaGY4b2lnIn0.ms2aRxomlmpNGr-zErviXw'
+    }
 })

@@ -181,7 +181,6 @@
             </p>
         </div>
     </section>
-    <Footer class="footer-about" />
 </template>
 
 <script setup>
