@@ -5,6 +5,7 @@
             :reservedGame="reservedGame"
             @clearReservedGame="clearReservedGame"
             @hideModal="hideModal"
+            @changeResultMessage="changeResultMessage"
         />
     </UIModal>
     <UIModal
@@ -15,6 +16,9 @@
         <UIFilterForm
             @submit="hideFilter"
             @resetCurrentPage="resetCurrentPage"
+            @getFilteredGames="getFilteredGames"
+            :filter="filter"
+            @updateFilter="updateFilter"
         />
     </UIModal>
     <UIDropInfo :resultMessage="resultMessage" />
@@ -39,9 +43,9 @@
                             />
                         </svg>
                         <span
-                            v-if="store.getCountOfUsedFilterOptions"
+                            v-if="getAmountOfUsedFilterOptions"
                             class="filter-img__indicator"
-                            >{{ store.getCountOfUsedFilterOptions }}</span
+                            >{{ getAmountOfUsedFilterOptions }}</span
                         >
                     </div>
                     Фільтр
@@ -56,7 +60,7 @@
                     />
                 </div>
             </div>
-            <div class="pagination" v-if="getAmountOfPage > 1">
+            <div class="pagination" v-if="getAmountOfPages > 1">
                 <button
                     class="pagination__btn pagination__btn_nav"
                     @click="paginationPrevPage"
@@ -100,7 +104,7 @@
                 <button
                     class="pagination__btn"
                     :class="{ active: btn === currentPage }"
-                    v-for="btn in getAmountOfPage"
+                    v-for="btn in getAmountOfPages"
                     :key="btn"
                     @click="setCurrentPage(btn)"
                 >
@@ -192,7 +196,7 @@
                         <TinderSlider
                             @add-like="handleAddLike($event, values, validate)"
                             @add-dislike="addDislike"
-                            :sliderGameCards="store.getBoardGames"
+                            :sliderGameCards="sliderGameCards"
                             :sessionUserGames="sessionUserGames"
                             :isUserPhoneValid="isUserPhoneValid"
                         />
@@ -210,39 +214,50 @@ import { storeToRefs } from "pinia";
 import { useGamesStore } from "~/stores/games";
 import useModal from "~/composables/useModal";
 import useDropInfo from "~/composables/useDropInfo";
+import useFilter from "~/composables/useFilter";
+import usePaginate from "~/composables/usePaginate";
 
 const config = useRuntimeConfig();
 const store = useGamesStore();
 const { isModalVisible, showModal, hideModal } = useModal();
 const { resultMessage, changeResultMessage } = useDropInfo();
+const {
+    currentPage,
+    pageSize,
+    paginationPrevPage,
+    paginationNextPage,
+    setCurrentPage,
+    resetCurrentPage,
+} = usePaginate();
+const {
+    isFilterVisible,
+    filter,
+    filteredGames,
+    getFilteredGames,
+    updateFilter,
+    getAmountOfUsedFilterOptions,
+    showFilter,
+    hideFilter,
+} = useFilter();
 const TOKEN = config.public.telegramToken;
 const CHAT_ID = config.public.telegramChatId;
 
 const { allGames, isFetchingData } = storeToRefs(store);
-const isFilterVisible = ref(false);
 const currentVotedGames = ref([]);
 const isUserPhoneValid = ref(true);
 const reservedGame = ref("");
 let sessionUserGames = ref([]);
-const currentPage = ref(1);
-const pageSize = ref(10);
 
-store.filter.category = "board_game";
+filter.value.category = "board_game";
 
-// const sliderGameCards = computed(() => {
-//     return allGames.value.filter(
-//         (game) => !currentVotedGames.value.includes(game.id)
-//     );
-// });
-
-// const boardGamesList = computed(() => {
-//     if (store.isFilterHasValues) {
-//         return store.filteredGames;
-//     } else return store.getBoardGames;
-// });
+const sliderGameCards = computed(() => {
+    return store.getBoardGames.filter(
+        (game) => !currentVotedGames.value.includes(game.id)
+    );
+});
 const paginate = computed(() => {
-    if (store.isFilterHasValues) {
-        return store.filteredGames.slice(
+    if (getAmountOfUsedFilterOptions.value) {
+        return filteredGames.value.slice(
             (currentPage.value - 1) * pageSize.value,
             currentPage.value * pageSize.value
         );
@@ -252,36 +267,11 @@ const paginate = computed(() => {
             currentPage.value * pageSize.value
         );
 });
-const getAmountOfPage = computed(() => {
-    if (store.isFilterHasValues) {
-        return Math.ceil(store.filteredGames.length / pageSize.value);
+const getAmountOfPages = computed(() => {
+    if (getAmountOfUsedFilterOptions.value) {
+        return Math.ceil(filteredGames.value.length / pageSize.value);
     } else return Math.ceil(store.getBoardGames.length / pageSize.value);
 });
-const paginationPrevPage = () => {
-    if (currentPage.value !== 1) {
-        currentPage.value--;
-        scrollToTop();
-    }
-};
-const paginationNextPage = () => {
-    if (currentPage.value !== getAmountOfPage.value) {
-        currentPage.value++;
-        scrollToTop();
-    }
-};
-const setCurrentPage = (page) => {
-    currentPage.value = page;
-    scrollToTop();
-};
-const resetCurrentPage = () => {
-    currentPage.value = 1;
-};
-const scrollToTop = () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-    });
-};
 
 const setReservedGame = (game) => {
     reservedGame.value = game;
@@ -289,12 +279,7 @@ const setReservedGame = (game) => {
 const clearReservedGame = () => {
     reservedGame.value = "";
 };
-const showFilter = () => {
-    isFilterVisible.value = true;
-};
-const hideFilter = () => {
-    isFilterVisible.value = false;
-};
+
 const isPhoneNumberValid = (value) => {
     const regex = /(?=.*\+[0-9]{3}\s?[0-9]{2}\s?[0-9]{3}\s?[0-9]{4,5}$)/gm;
     if (!value) {

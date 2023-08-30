@@ -23,12 +23,12 @@ export const useGamesStore = defineStore('games', {
             { name: 'Легка гра', id: 'easy' },
             { name: 'Середня складність', id: 'medium' },
             { name: 'Висока складність', id: 'hard' }],
-        filter: {
-            category: '',
-            durations: [],
-            quantityOfPlayers: [],
-            difficulties: [],
-        }
+        // filter: {
+        //     category: '',
+        //     durations: [],
+        //     quantityOfPlayers: [],
+        //     difficulties: [],
+        // }
     }),
     actions: {
         async fetchAllGames() {
@@ -58,44 +58,44 @@ export const useGamesStore = defineStore('games', {
             return state.allGames
                 .filter((game) => { game.game_category[0] === "war_game" });
         },
-        isFilterHasValues(state) {
-            return !!(state.filter.category || state.filter.durations.length || state.filter.quantityOfPlayers.length || state.filter.difficulties.length)
-        },
-        filteredGames(state) {
-            if (!this.isFilterHasValues) {
-                return state.allGames;
-            }
-            return state.allGames
-                .filter((game) => {
-                    return state.filter.category ? game.game_category[0] === state.filter.category : true;
-                })
-                .filter((game) => {
-                    return state.filter.difficulties.length ? state.filter.difficulties.includes(game.difficult[0]) : true;
-                })
-                .filter((game) => {
-                    return state.filter.durations.length ? state.filter.durations.filter((duration) => {
-                        const durationsArr = duration.split('-');
-                        return +game.duration >= +durationsArr[0] + 1 && +game.duration <= +durationsArr[1] + 1
-                    }).length : true;
-                })
-                .filter((game) => {
-                    return state.filter.quantityOfPlayers.length ? state.filter.quantityOfPlayers.filter((quantity) => {
-                        const quantityArr = quantity.split('-');
-                        // const param1 = +game.min_players >= +quantityArr[0] && +game.min_players <= +quantityArr[1];
-                        // const param2 = +game.max_players >= +quantityArr[0] && +game.max_players <= +quantityArr[1];
-                        // return param1 || param2
-                        const quanArr = Array.from({ length: +quantityArr[1] - +quantityArr[0] + 1 }, (_, index) => +quantityArr[0] + index);
-                        const gameArr = Array.from({ length: +game.max_players - +game.min_players + 1 }, (_, index) => +game.min_players + index);
-                        return quanArr.some(game => gameArr.includes(game));
-                    }).length : true;
-                })
-        },
-        getCountOfUsedFilterOptions(state) {
-            // return state.filter.category ?
-            //     1 + state.filter.durations.length + state.filter.quantityOfPlayers.length + state.filter.difficulties.length
-            //     : state.filter.durations.length + state.filter.quantityOfPlayers.length + state.filter.difficulties.length;
-            return state.filter.durations.length + state.filter.quantityOfPlayers.length + state.filter.difficulties.length;
+        // isFilterHasValues(state) {
+        //     return !!(state.filter.category || state.filter.durations.length || state.filter.quantityOfPlayers.length || state.filter.difficulties.length)
+        // },
+        // filteredGames(state) {
+        //     if (!this.isFilterHasValues) {
+        //         return state.allGames;
+        //     }
+        //     return state.allGames
+        //         .filter((game) => {
+        //             return state.filter.category ? game.game_category[0] === state.filter.category : true;
+        //         })
+        //         .filter((game) => {
+        //             return state.filter.difficulties.length ? state.filter.difficulties.includes(game.difficult[0]) : true;
+        //         })
+        //         .filter((game) => {
+        //             return state.filter.durations.length ? state.filter.durations.filter((duration) => {
+        //                 const durationsArr = duration.split('-');
+        //                 return +game.duration >= +durationsArr[0] + 1 && +game.duration <= +durationsArr[1] + 1
+        //             }).length : true;
+        //         })
+        //         .filter((game) => {
+        //             return state.filter.quantityOfPlayers.length ? state.filter.quantityOfPlayers.filter((quantity) => {
+        //                 const quantityArr = quantity.split('-');
+        //                 // const param1 = +game.min_players >= +quantityArr[0] && +game.min_players <= +quantityArr[1];
+        //                 // const param2 = +game.max_players >= +quantityArr[0] && +game.max_players <= +quantityArr[1];
+        //                 // return param1 || param2
+        //                 const quanArr = Array.from({ length: +quantityArr[1] - +quantityArr[0] + 1 }, (_, index) => +quantityArr[0] + index);
+        //                 const gameArr = Array.from({ length: +game.max_players - +game.min_players + 1 }, (_, index) => +game.min_players + index);
+        //                 return quanArr.some(game => gameArr.includes(game));
+        //             }).length : true;
+        //         })
+        // },
+        // getCountOfUsedFilterOptions(state) {
+        //     // return state.filter.category ?
+        //     //     1 + state.filter.durations.length + state.filter.quantityOfPlayers.length + state.filter.difficulties.length
+        //     //     : state.filter.durations.length + state.filter.quantityOfPlayers.length + state.filter.difficulties.length;
+        //     return state.filter.durations.length + state.filter.quantityOfPlayers.length + state.filter.difficulties.length;
 
-        }
+        // }
     },
 })
