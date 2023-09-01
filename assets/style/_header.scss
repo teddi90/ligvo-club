@@ -8,8 +8,12 @@
     padding: 16px 0;
     &_bg{
         background-color: rgba(0,0,0,.8);
-        .sub-menu::after{
-            background-color: rgba(0,0,0,.8);
+        .sub-menu{
+            border: 1px solid rgba(221, 158, 70, 0.4);
+            border-top: none;
+            &::after{
+                background-color: rgba(0,0,0,.8);
+            }
         }
     }
     .container, .nav{
@@ -160,9 +164,12 @@
     width: 165px;
     display: none;
     left: -16px;
-    border-left:1px solid rgba($main-color, 0.2);
-    border-right:1px solid rgba($main-color, 0.2);
-    border-bottom:1px solid rgba($main-color, 0.2);
+    border:1px solid rgba($main-color, 0.2);
+    border-top:none;
+    .router-link-active{
+        color:$main-color;
+        font-weight: 500;
+    }
     &::after{
         content:'';
         display: block;
@@ -329,6 +336,10 @@
     box-sizing: border-box;
     visibility: hidden;
     transform: translateY(152px);
+    .router-link-active{
+        color:$main-color;
+        font-weight: 500;
+    }
     &__open{
         margin-top: 16px;
         visibility: visible;

@@ -22,10 +22,10 @@
                                 >
                             </li>
                             <li>
-                                <NuxtLink to="#">МТГ</NuxtLink>
+                                <NuxtLink to="/mtg">МТГ</NuxtLink>
                             </li>
                             <li>
-                                <NuxtLink to="#">Варгейми</NuxtLink>
+                                <NuxtLink to="/wargames">Варгейми</NuxtLink>
                             </li>
                         </ul>
                     </div>
@@ -101,7 +101,7 @@
                                         </svg>
                                     </a>
                                     <a
-                                        href="#"
+                                        href="https://www.youtube.com/@ligvo_if"
                                         target="_blank"
                                         class="footer__icon"
                                     >

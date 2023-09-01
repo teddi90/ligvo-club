@@ -85,7 +85,7 @@
                             ігри, які є ігри, вікова категорія, жанри, типи і
                             тд.
                         </p>
-                        <NuxtLink class="btn catalog__btn" to="#"
+                        <NuxtLink class="btn catalog__btn" to="/mtg"
                             >Більше</NuxtLink
                         >
                     </div>
@@ -100,7 +100,7 @@
                             ігри, які є ігри, вікова категорія, жанри, типи і
                             тд.
                         </p>
-                        <NuxtLink class="btn catalog__btn" to="#"
+                        <NuxtLink class="btn catalog__btn" to="/wargames"
                             >Більше</NuxtLink
                         >
                     </div>

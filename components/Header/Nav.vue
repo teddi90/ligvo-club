@@ -33,11 +33,15 @@
                                     >
                                 </li>
                                 <li class="sub-menu__item">
-                                    <a class="sub-menu__link" href="#">МТГ</a>
+                                    <NuxtLink class="sub-menu__link" to="/mtg"
+                                        >МТГ</NuxtLink
+                                    >
                                 </li>
                                 <li class="sub-menu__item">
-                                    <a class="sub-menu__link" href="#"
-                                        >Варгейми</a
+                                    <NuxtLink
+                                        class="sub-menu__link"
+                                        to="/wargames"
+                                        >Варгейми</NuxtLink
                                     >
                                 </li>
                             </ul>
@@ -109,7 +113,7 @@
                                                 closeMenu(),
                                                     closeSubMobileMenu()
                                             "
-                                            to="#"
+                                            to="/mtg"
                                             class="sub-menu-mobile__link"
                                             >МТГ</NuxtLink
                                         >
@@ -120,7 +124,7 @@
                                                 closeMenu(),
                                                     closeSubMobileMenu()
                                             "
-                                            to="#"
+                                            to="/wargames"
                                             class="sub-menu-mobile__link"
                                             >Варгейми</NuxtLink
                                         >
