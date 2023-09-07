@@ -28,6 +28,10 @@
                         :src="game.image.guid"
                         :alt="game.game_title"
                         class="game-page__img"
+                        :class="{
+                            'game-page__img_cover':
+                                game.game_category[0] === 'war_game',
+                        }"
                     />
                 </div>
                 <div class="game-page__info">
@@ -93,6 +97,9 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="game.game_quote" class="game-page__quote">
+                    {{ game.game_quote }}
+                </div>
                 <div class="game-page__text" v-html="game.description" />
                 <button
                     @click="
@@ -150,7 +157,7 @@ const getCategoryInfo = computed(() => {
     } else if (category === "mtg") {
         return { name: "МТГ", path: category };
     } else if (category === "wargames") {
-        return { name: "Варшейми", path: category };
+        return { name: "Варгейми", path: category };
     }
 });
 </script>

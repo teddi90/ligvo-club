@@ -1,7 +1,6 @@
 export default () => {
     const isFilterVisible = ref(false);
     const filter = ref({
-        category: "",
         durations: [],
         quantityOfPlayers: [],
         difficulties: [],

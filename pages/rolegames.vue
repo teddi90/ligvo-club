@@ -18,6 +18,7 @@
             @resetCurrentPage="resetCurrentPage"
             @getFilteredGames="getFilteredGames"
             :filter="filter"
+            :games="store.getRoleGames"
             @updateFilter="updateFilter"
         />
     </UIModal>
@@ -112,7 +113,7 @@
                 </button>
                 <button
                     class="pagination__btn pagination__btn_nav"
-                    @click="paginationNextPage"
+                    @click="paginationNextPage(getAmountOfPages)"
                 >
                     <svg
                         width="33"
@@ -247,8 +248,6 @@ const currentVotedGames = ref([]);
 const isUserPhoneValid = ref(true);
 const reservedGame = ref("");
 let sessionUserGames = ref([]);
-
-filter.value.category = "role_game";
 
 const sliderGameCards = computed(() => {
     return store.getRoleGames.filter(

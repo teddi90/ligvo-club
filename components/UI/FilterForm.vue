@@ -3,19 +3,7 @@
         <h3 class="filter__title">Фільтр</h3>
         <form class="filter__form" @submit.prevent>
             <div class="row">
-                <div class="col-sm-5 offset-sm-1 offset-lg-0 col-lg-3">
-                    <div class="filter__item">
-                        <h4 class="filter__category">Категорія</h4>
-                        <UIRadio
-                            v-for="category in store.categories"
-                            v-model="filter.category"
-                            :key="category.id"
-                            :label="category.name"
-                            :id="category.id"
-                        />
-                    </div>
-                </div>
-                <div class="col-sm-5 offset-sm-1 offset-lg-0 col-lg-3">
+                <div class="col-sm-6 col-md-4">
                     <div class="filter__item">
                         <h4 class="filter__category">Тривалість</h4>
                         <UICheckbox
@@ -27,7 +15,7 @@
                         />
                     </div>
                 </div>
-                <div class="col-sm-5 offset-sm-1 offset-lg-0 col-lg-3">
+                <div class="col-sm-6 col-md-4">
                     <div class="filter__item">
                         <h4 class="filter__category">Кількість гравців</h4>
                         <UICheckbox
@@ -39,7 +27,7 @@
                         />
                     </div>
                 </div>
-                <div class="col-sm-5 offset-sm-1 offset-lg-0 col-lg-3">
+                <div class="col-sm-6 col-md-4">
                     <div class="filter__item">
                         <h4 class="filter__category">Складність</h4>
                         <UICheckbox
@@ -90,6 +78,10 @@ const props = defineProps({
         type: Object,
         default: {},
     },
+    games: {
+        type: Array,
+        requred: true,
+    },
 });
 
 const route = useRoute();
@@ -97,7 +89,6 @@ const router = useRouter();
 
 const clearFilter = () => {
     emit("updateFilter", {
-        category: "",
         durations: [],
         quantityOfPlayers: [],
         difficulties: [],
@@ -105,7 +96,6 @@ const clearFilter = () => {
 };
 const isFilterHasValues = computed(() => {
     return !!(
-        props.filter.category ||
         props.filter.durations.length ||
         props.filter.quantityOfPlayers.length ||
         props.filter.difficulties.length
@@ -113,9 +103,9 @@ const isFilterHasValues = computed(() => {
 });
 const filteredGames = computed(() => {
     if (!isFilterHasValues.value) {
-        return store.getAllGames;
+        return props.games;
     }
-    return store.getAllGames
+    return props.games
         .filter((game) => {
             return props.filter.category
                 ? game.game_category[0] === props.filter.category

@@ -3,10 +3,20 @@
         <figure>
             <NuxtLink :to="`/game/${game.id}`" class="game__img_wrapper">
                 <img
+                    v-if="game.game_category[0] !== 'war_game'"
                     :src="game.image.guid"
                     :alt="game.game_title"
                     class="game__img"
                 />
+                <img
+                    v-if="game.game_category[0] === 'war_game'"
+                    :src="game.image.guid"
+                    :alt="game.game_title"
+                    class="game__img_cover"
+                />
+                <div class="game__quote_wrapper" v-if="game.game_quote">
+                    <span class="game__quote">{{ game.game_quote }} </span>
+                </div>
             </NuxtLink>
         </figure>
         <figcaption>

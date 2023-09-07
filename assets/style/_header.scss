@@ -6,6 +6,7 @@
     z-index: 99999;
     background-color: rgba(0,0,0,.2);
     padding: 16px 0;
+    transition: background .4s ease-in-out;
     &_bg{
         background-color: rgba(0,0,0,.8);
         .sub-menu{
@@ -180,6 +181,7 @@
         background-color: rgba(#000, .2);
         left: 0;
         bottom: 0;
+        transition: background .4s ease-in-out;
         @include media('md'){
             height: calc(100% - 31px);
         }

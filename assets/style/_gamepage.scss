@@ -87,18 +87,28 @@
         }
     }
     &__img {
+        padding: 10px 0;
         &-wrapper {
             filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.42));
             border-radius: $border-radius;
             margin-bottom: 16px;
             background:#fff;
             display: flex;
+            position: relative;
             justify-content: center;
-            padding: 10px 0;
             height: 450px;
+            overflow: hidden;
             @include media('xs'){
                 height: 300px;
             }
+        }
+        &_cover{
+            padding: 0;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
         }
     }
     &__title {
@@ -109,6 +119,11 @@
         @include media('md'){
             margin-bottom: 14px;
         }
+    }
+    &__quote{
+        margin-bottom: 20px;
+        font-style: italic;
+        font-weight: 500;
     }
     &__info{        
         margin-bottom: 20px;

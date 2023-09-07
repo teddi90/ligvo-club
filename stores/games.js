@@ -48,15 +48,15 @@ export const useGamesStore = defineStore('games', {
         },
         getRoleGames(state) {
             return state.allGames
-                .filter((game) => { game.game_category[0] === "role_game" });
+                .filter((game) => (game.game_category[0] === "role_game"));
         },
         getMtgGames(state) {
             return state.allGames
-                .filter((game) => { game.game_category[0] === "mtg" });
+                .filter((game) => (game.game_category[0] === "mtg"));
         },
         getWarGames(state) {
             return state.allGames
-                .filter((game) => { game.game_category[0] === "war_game" });
+                .filter((game) => (game.game_category[0] === "war_game"));
         },
         // isFilterHasValues(state) {
         //     return !!(state.filter.category || state.filter.durations.length || state.filter.quantityOfPlayers.length || state.filter.difficulties.length)

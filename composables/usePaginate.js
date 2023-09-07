@@ -15,8 +15,8 @@ export default () => {
             scrollToTop();
         }
     };
-    const paginationNextPage = () => {
-        if (currentPage.value !== getAmountOfPages.value) {
+    const paginationNextPage = (lastPage) => {
+        if (currentPage.value !== lastPage.value) {
             currentPage.value++;
             scrollToTop();
         }
