@@ -158,6 +158,6 @@ const getCategoryInfo = computed(() => {
         return { name: "МТГ", path: category };
     } else if (category === "wargames") {
         return { name: "Варгейми", path: category };
-    }
+    } else false;
 });
 </script>

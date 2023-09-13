@@ -151,7 +151,7 @@
                         </ul>
                         <div class="menu-mobile__bottom">
                             <h4>Зв’язатися з нами</h4>
-                            <a href="tel:+0954314083" class="btn"
+                            <a href="tel:+380954314083" class="btn"
                                 >Зателефонувати</a
                             >
                             <a
