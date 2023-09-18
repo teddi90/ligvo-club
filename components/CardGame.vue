@@ -1,7 +1,13 @@
 <template>
     <div class="game game__card">
         <figure>
-            <NuxtLink :to="`/game/${game.id}`" class="game__img_wrapper">
+            <NuxtLink
+                :to="`/game/${game.id}`"
+                class="game__img_wrapper"
+                :class="{
+                    game__img_wrapper_bg: game.game_category[0] === 'war_game',
+                }"
+            >
                 <img
                     v-if="game.game_category[0] !== 'war_game'"
                     :src="game.image.guid"

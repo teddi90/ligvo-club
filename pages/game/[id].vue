@@ -23,7 +23,13 @@
             </div>
             <h2 class="title">{{ game.game_title }}</h2>
             <div class="game-page__wrapper">
-                <div class="game-page__img-wrapper">
+                <div
+                    class="game-page__img-wrapper"
+                    :class="{
+                        'game-page__img-wrapper_bg':
+                            game.game_category[0] === 'war_game',
+                    }"
+                >
                     <img
                         :src="game.image.guid"
                         :alt="game.game_title"

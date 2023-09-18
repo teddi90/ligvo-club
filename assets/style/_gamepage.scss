@@ -101,6 +101,9 @@
             @include media('xs'){
                 height: 300px;
             }
+            &_bg{
+                background:$main-color;
+            }
         }
         &_cover{
             padding: 0;
