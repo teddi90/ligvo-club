@@ -42,8 +42,7 @@
                 <div class="filter__btn-wrapper">
                     <button
                         @click="
-                            redirectToPage(),
-                                emit('submit'),
+                            emit('submit'),
                                 emit('resetCurrentPage'),
                                 emit('getFilteredGames', filteredGames),
                                 emit('updateFilter', filter)
@@ -144,15 +143,5 @@ const filteredGames = computed(() => {
                 : true;
         });
 });
-
-const redirectToPage = () => {
-    if (props.filter.category) {
-        let page = props.filter.category.split("_").join("");
-        page = page !== "mtg" ? page + "s" : "mtg";
-        if (route.name !== page) {
-            router.push({ path: `/${page}` });
-        }
-    }
-};
 </script>
 
