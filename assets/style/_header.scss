@@ -332,8 +332,9 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    height: 0;
-    transition: height .4s ease-in-out, transform .4s ease-in-out ;
+    max-height: 0;
+    padding-top: 3px;
+    transition: all .4s ease-in-out, transform .5s ease-in-out ;
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     box-sizing: border-box;
     visibility: hidden;
@@ -346,12 +347,9 @@
         margin-top: 16px;
         visibility: visible;
         @include media('sm'){
-            height: 171px;
+            max-height: 1000px;
             transform: translateY(0px);
 
-        }
-        @include media('xs'){
-            height: 137px;
         }
     }
     &__item{
@@ -365,6 +363,9 @@
         }
         &:not(:last-child){
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        &:last-child{
+            padding-bottom: 0;
         }
     }
     &__link{
