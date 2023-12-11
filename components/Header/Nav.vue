@@ -32,7 +32,7 @@
                                         >Рольові ігри</NuxtLink
                                     >
                                 </li>
-                                <li class="sub-menu__item">
+                                <li class="sub-menu__item d-none">
                                     <NuxtLink class="sub-menu__link" to="/mtg"
                                         >МТГ</NuxtLink
                                     >
@@ -107,7 +107,7 @@
                                             >Рольові ігри</NuxtLink
                                         >
                                     </li>
-                                    <li class="sub-menu-mobile__item">
+                                    <li class="sub-menu-mobile__item d-none">
                                         <NuxtLink
                                             @click="
                                                 closeMenu(),

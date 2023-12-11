@@ -21,7 +21,7 @@
                                     >Рольові ігри</NuxtLink
                                 >
                             </li>
-                            <li>
+                            <li class="d-none">
                                 <NuxtLink to="/mtg">МТГ</NuxtLink>
                             </li>
                             <li>

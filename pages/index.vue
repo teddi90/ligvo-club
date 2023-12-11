@@ -72,7 +72,9 @@
                         >
                     </div>
                 </div>
-                <div class="catalog-wrapper__item catalog-wrapper__item_3">
+                <div
+                    class="catalog-wrapper__item catalog-wrapper__item_3 d-none"
+                >
                     <h3 class="catalog-wrapper__title">МТГ</h3>
                     <div class="catalog-wrapper__item_hover">
                         <h3>МТГ</h3>
